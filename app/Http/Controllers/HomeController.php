@@ -34,7 +34,11 @@ class HomeController extends Controller
         $name_user = session::get('admin_name');
         $id_user = session::get('admin_id');
         $type_user = session::get('admin_type');
+        if($id_user){
         return view('home.index',['name_user'=>$name_user,'id_user'=>$id_user,'g_group'=>$g_group,'g_room'=>$g_room,'type_user'=>$type_user]);
+        }else{
+            return redirect()->action('UsersController@viewlogin');
+        }
     }
     /**
      * Show the form for creating a new resource.
@@ -100,7 +104,8 @@ class HomeController extends Controller
     }
     function checkEvent($start, $end)
     {
-        $result = DB::table('events')->select('*')
+        $result = DB::table('events')->select('events.*','rooms.r_name')
+                ->leftJoin('rooms', 'events.room_id', '=', 'rooms.id')
                 ->where(function($q) use($start, $end) {
                 $q->where(function ($query) use($start, $end) {
                     $query->where([
@@ -127,9 +132,34 @@ class HomeController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function searchRoom()
     {
-        //
+        $o_response = new \stdclass();
+        $from = Input::get('from');
+        $to = Input::get('to');
+        $arrEvent = $this->checkEvent($from,$to);
+        $room = DB::table('rooms')->select('*')->get();
+
+        $result = array();
+        foreach($room as $key => $value){
+           $result[] = $value->r_name;
+        }
+        $searchroom = array();
+        foreach($arrEvent as $key => $value){
+           $searchroom[] = $value->r_name;
+        }
+        foreach ($result as $key => $value) {
+            if(in_array($value, $searchroom)){
+                unset($result[$key]);
+            }
+        }
+        if($result){
+            $o_response->status = 'ok';
+            $o_response->message = $result;
+        }else{
+            $o_response->status = 'error';
+        }
+        echo json_encode($o_response);
     }
 
     /**

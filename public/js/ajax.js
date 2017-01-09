@@ -373,3 +373,31 @@ function delete_event(){
         }
     });
 }
+function search_empty(){
+	var from = $('#datetimepicker-from').val();
+	var to = $('#datetimepicker-to').val();
+	if(from == ''){
+		alert('chua chon thoi gian');
+	}
+	else if(to == ''){
+		alert('chua chon thoi gian');
+	}else{
+		$('#search-event').modal('show');
+	$.ajax({
+		url: 'home/searchempty',
+		type: 'post',
+		dataType: 'json',
+		data: {from: from,to: to},
+		success: function(data){
+			if(data.status == 'ok'){
+				var room = data.message;
+				$('#search-event').find('.modal-body #1').text(room[0]);
+				$('#search-event').find('.modal-body #2').text(room[1]);
+				$('#search-event').find('.modal-body #3').text(room[2]);
+				$('#search-event').find('.modal-body #4').text(room[3]);
+				$('#search-event').find('.modal-body #5').text(room[4]);
+			}
+		}
+	});
+	}
+}

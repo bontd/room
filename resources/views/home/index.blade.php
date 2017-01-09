@@ -20,7 +20,7 @@
 					<input type="text" name="end" id="datetimepicker-to" placeholder="yyyy/mm/dd h:m">
 				</td>
 				<td>
-					<button class="search-event" data-toggle="modal" data-target="#search-event">Search Empty Room</button>
+					<button class="search-event" data-toggle="modal" onclick="search_empty()">Search Empty Room</button>
 				</td>
 			</tr>
 		</table>
@@ -205,7 +205,11 @@
                 <h4 class="modal-title">Search Empty Room</h4>
             </div>
             <div class="modal-body">
-                
+                <h3 id="1"></h3>
+                <h3 id="2"></h3>
+                <h3 id="3"></h3>
+                <h3 id="4"></h3>
+                <h3 id="5"></h3>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="close_all();">Close</button>

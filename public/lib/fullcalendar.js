@@ -28,9 +28,7 @@ $(document).ready(function() {
                     center: 'title',
                     right: 'month,agendaWeek,agendaDay,today'
                 },
-                defaultDate: '2016-12-12',
                 navLinks: true, // can click day/week names to navigate views
-
                 weekNumbers: true,
                 weekNumbersWithinDays: true,
                 weekNumberCalculation: 'ISO',

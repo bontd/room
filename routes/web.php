@@ -11,9 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'HomeController@index');
 Route::get('/login','UsersController@viewlogin');
 Route::post('/login','UsersController@login');
 Route::get('/logout','UsersController@logout');
@@ -41,5 +39,6 @@ Route::group(['middleware' => 'login'], function(){
 		Route::post('/view','HomeController@show');
 		Route::post('/created','HomeController@created');
 		Route::post('/delete','HomeController@delete');
+		Route::post('/searchempty','HomeController@searchRoom');
 	});
 });
