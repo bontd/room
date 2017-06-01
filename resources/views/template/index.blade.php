@@ -34,7 +34,7 @@
             <div class="container">
                 <div class="row">
                     <div class="col-xs-5 pull-left">
-                        <h3 style="font-weight: bold; line-height: 11px;"><a href="{{url('/home')}}" style="text-decoration: none;color: #fff;">Room</a></h3>
+                        <h3 style="font-weight: bold; line-height: 11px;"><a href="{{url('/index')}}" style="text-decoration: none;color: #fff;">Room</a></h3>
                     </div>
                     <div class="col-xs-3 pull-right">
                         <h5 class="text-right">
@@ -53,6 +53,8 @@
                                     <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i> Log out</a></li>
                                 @else
                                     <!-- <li><a href="#" data-toggle="modal" data-target="#changePassword"><i class="fa fa-lock"></i> Change password</a></li> -->
+                                    <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i> Calendar</a></li>
+                                    <li><a href="{{url('/index')}}"><i class="fa fa-calendar"></i> Index</a></li>
                                     <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i> Log out</a></li>
                                 @endif
                                 </ul>

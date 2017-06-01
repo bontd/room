@@ -371,3 +371,9 @@ background-color: #f4f4f4;
 	overflow-x: hidden!important;
 	overflow-y: hidden!important;
 }
+#detail-1 {
+	overflow: hidden;
+}
+.detail-image img {
+	width: 120px;
+}

@@ -165,7 +165,7 @@ class UsersController extends Controller
                 session::put('admin_name',$b_check->name);
                 session::put('admin_type',$b_check->remember_token);
                 //echo "abc";
-                return redirect()->action('HomeController@index');
+                return redirect()->action('IndexController@index');
             }
             else{
                 return view('/users/login',['error'=>'Login False']);

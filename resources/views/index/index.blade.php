@@ -11,7 +11,7 @@
           <p>Certificate: {{$value->certificate}}</p>
           <p>sch: </p>
           <p>Location: {{$value->location}}</p>
-          <a href="javascript:void(0)" class="btn btn-info pull-right" data-toggle="modal" data-target="#detail-user-{{$value->id}}"><i class="fa fa-arrows"></i></a>
+          <a href="javascript:void(0)" class="btn btn-info pull-right" data-toggle="modal" data-target="#detail-user-{{$value->id}}"><i class="fa fa-plus"></i></a>
         </div>
       </div>
     </div>
@@ -26,23 +26,28 @@
     				<h4 class="modal-title">Detail Teacher</h4>
     			</div>
     			<div class="modal-body">
-    				<form>
-    					<label>Fullname:</label>
-              <p>{{$value->name}}</p>
-    					<label>Birthday:</label>
-    					<p>{{$value->birthday}}</p>
-    					<label>Certificate:</label>
-    					<p>{{$value->certificate}}</p>
-    					<label>Phone:</label>
-    					<p>{{$value->phone}}</p>
-    					<label>Email:</label>
-    					<p>{{$value->email}}</p>
+            <div id="detail-1">
+              <div class="col-md-8 col-sm-8">
+                <label>Fullname:</label>
+                <p>{{$value->name}}</p>
+      					<label>Birthday:</label>
+      					<p>{{$value->birthday}}</p>
+      					<label>Certificate:</label>
+      					<p>{{$value->certificate}}</p>
+      					<label>Phone:</label>
+      					<p>{{$value->phone}}</p>
+      					<label>Email:</label>
+      					<p>{{$value->email}}</p>
+              </div>
+              <div class="col-md-4 col-sm-4 detail-image">
+                <img src="{{url('/images/'.$value->image)}}" />
+              </div>
+            </div>
     			</div>
     			<div class="modal-footer">
     				<!-- <button type="button" class="btn btn-default" onclick="created_user();">Ok</button> -->
     				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="close_all();">Close</button>
     			</div>
-    			</form>
     		</div>
     	</div>
     </div>
