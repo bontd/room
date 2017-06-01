@@ -43,5 +43,6 @@ Route::group(['middleware' => 'login'], function(){
 	});
 	Route::group(['prefix'=>'/index'],function(){
 		Route::get('/','IndexController@index');
+		Route::get('/detail','IndexController@detail');
 	});
 });

@@ -29,7 +29,18 @@ class IndexController extends Controller
       $id_user = session::get('admin_id');
       $type_user = session::get('admin_type');
       if($id_user){
-      return view('index.index',['name_user'=>$name_user,'id_user'=>$id_user,'g_group'=>$g_group,'g_room'=>$g_room,'type_user'=>$type_user]);
+      return view('index.index',['name_user'=>$name_user,'id_user'=>$id_user,'g_group'=>$g_group,'g_room'=>$g_room,'type_user'=>$type_user,'get_user'=>$get_user]);
+      }else{
+          return redirect()->action('UsersController@viewlogin');
+      }
+    }
+
+    public function detail(){
+      $name_user = session::get('admin_name');
+      $id_user = session::get('admin_id');
+      $type_user = session::get('admin_type');
+      if($id_user){
+      return view('index.detail',['name_user'=>$name_user,'id_user'=>$id_user,'type_user'=>$type_user]);
       }else{
           return redirect()->action('UsersController@viewlogin');
       }
