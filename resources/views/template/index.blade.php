@@ -47,6 +47,7 @@
                                 @if($type_user == 1)
                                     <li><a href="{{url('/users')}}"><i class="fa fa-user"></i> User Manage</a></li>
                                     <li><a href="{{url('/groups')}}"><i class="fa fa-users"></i> Group & Room Manage</a></li>
+                                    <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i> Calendar</a></li>
                                     <div class="dropdown-divider"></div>
                                     <!-- <li><a href="#" data-toggle="modal" data-target="#changePassword"><i class="fa fa-lock"></i> Change password</a></li> -->
                                     <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i> Log out</a></li>

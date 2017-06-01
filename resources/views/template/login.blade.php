@@ -23,7 +23,7 @@
         </script>
         <style type="text/css">
             body{
-                background-color: #364150;
+                background-color: #eaeaea;
             }
         </style>
     </head>

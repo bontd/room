@@ -41,4 +41,7 @@ Route::group(['middleware' => 'login'], function(){
 		Route::post('/delete','HomeController@delete');
 		Route::post('/searchempty','HomeController@searchRoom');
 	});
+	Route::group(['prefix'=>'/index'],function(){
+		Route::get('/','IndexController@index');
+	});
 });

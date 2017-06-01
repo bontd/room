@@ -14,12 +14,12 @@
 						<td><input type="password" name="password" id="password" placeholder="Password" required></td>
 					</tr>
 					<tr>
-						<td><button type="submit">Login</button></td>
+						<td><button type="submit" style="width:85%;">Login</button></td>
 					</tr>
 				</table>
 			</form>
 		</div>
-		<div class="footer-login"><h4>{{$error or "Welcome to Login Admin"}}</h4></div>
+		<div class="footer-login"><h4>{{$error or ""}}</h4></div>
 	</div>
 </div>
 @stop

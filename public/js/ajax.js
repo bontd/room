@@ -327,7 +327,7 @@ function created_event(){
 					color:color},
 				success: function(data){
 					if(data.status == 'ok'){
-						$('#created_event').modal('hide');
+						$('#created-event').modal('hide');
 						$('#success').modal('show');
 						$('#success').find('.modal-body h3').text(data.message);
 					}

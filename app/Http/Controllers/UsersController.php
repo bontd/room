@@ -34,10 +34,10 @@ class UsersController extends Controller
     public function created(){
     	$o_response = new \stdclass();
     	$sz_email = Input::get('email');
-    	$fullname   = isset($_POST['fullname']) ? trim($_POST['fullname']) : '';       
+    	$fullname   = isset($_POST['fullname']) ? trim($_POST['fullname']) : '';
         $password   = isset($_POST['password']) ? trim($_POST['password']) : '';
         $groups   = isset($_POST['groups']) ? trim($_POST['groups']) : '';
-    	
+
     	$users = new Users();
     	$get_user = $users->whereUser($sz_email);
 
@@ -85,13 +85,13 @@ class UsersController extends Controller
         $o_response = new \stdclass();
         $i_id = Input::get('id');
         $i_status = Input::get('status');
-        $i_status = $i_status==1?2:1;   
+        $i_status = $i_status==1?2:1;
 
         $i_id = (int)$i_id;
         //$i_status = (int)$i_status;
 
         $b_update = DB::table('users')->where('id',$i_id)->update(['remember_token'=>$i_status]);
-        
+
         if($b_update){
             $o_response->status = 'ok';
         }
@@ -148,7 +148,7 @@ class UsersController extends Controller
             $email = $request->get('email');
             $password = $request->get('password');
             // chuyển query ra ngoài cho dễ nhìn
-            
+
             $b_check = DB::table('users')
                 ->select('id','name','email','password','remember_token')
                 ->where('email',$email)
@@ -168,7 +168,7 @@ class UsersController extends Controller
                 return redirect()->action('HomeController@index');
             }
             else{
-                return view('/users/login',['error'=>'Incorrect login email or password']);
+                return view('/users/login',['error'=>'Login False']);
             }
         }
     }

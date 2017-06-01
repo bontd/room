@@ -94,7 +94,6 @@
 }
 .modal-body h3{
 	text-align: center;
-	color: green;
 }
 .modal-body h2{
 	font-size: 24px;
@@ -310,4 +309,32 @@ background-color: #f4f4f4;
 	z-index: 1000;
 	top: 50%;
 	left: 45%;
+}
+.main-left {
+	width: auto;
+	height: 100%;
+	padding: 0!important;
+}
+.main-left ul {
+	list-style: none;
+}
+.main-left ul li {
+	background-color: #095494;
+	padding: 10px;
+	color: #fff;
+	border-bottom: solid thin #eaeaea;
+}
+.main-left ul li a {
+	width: 100%;
+	color: #fff;
+	text-decoration: none;
+}
+.main-left ul li:hover a {
+	opacity: 0.8;
+}
+.profile-right {
+	color: #000;
+}
+.profile-right tr {
+	height: 40px;
 }
