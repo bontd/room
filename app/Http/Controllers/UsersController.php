@@ -35,8 +35,8 @@ class UsersController extends Controller
     	$o_response = new \stdclass();
     	$sz_email = Input::get('email');
     	$fullname   = isset($_POST['fullname']) ? trim($_POST['fullname']) : '';
-        $password   = isset($_POST['password']) ? trim($_POST['password']) : '';
-        $groups   = isset($_POST['groups']) ? trim($_POST['groups']) : '';
+      $password   = isset($_POST['password']) ? trim($_POST['password']) : '';
+      $groups   = isset($_POST['groups']) ? trim($_POST['groups']) : '';
 
     	$users = new Users();
     	$get_user = $users->whereUser($sz_email);
@@ -175,6 +175,7 @@ class UsersController extends Controller
     public function logout(){
         session::forget('admin_id');
         session::forget('admin_name');
-        return redirect('login');
+        session::forget('admin_type');
+        return redirect('index');
     }
 }

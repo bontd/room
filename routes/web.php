@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'HomeController@index');
+Route::get('/', 'IndexController@index');
 Route::get('/login','UsersController@viewlogin');
 Route::post('/login','UsersController@login');
 Route::get('/logout','UsersController@logout');
@@ -44,5 +44,7 @@ Route::group(['middleware' => 'login'], function(){
 	Route::group(['prefix'=>'/index'],function(){
 		Route::get('/','IndexController@index');
 		Route::get('/detail','IndexController@detail');
+		Route::get('/register','IndexController@register');
+		Route::post('/created-user','IndexController@created_user');
 	});
 });

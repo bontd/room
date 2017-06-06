@@ -92,7 +92,7 @@ function update_user(id){
 function close_user(){
 	$('#created-user').modal('hide');
 	$('#success').modal('hide');
-	window.location.reload();
+	window.location.href = '/laravel/room/public/index';
 }
 function close_all(){
 	$('#created-user').modal('hide');
@@ -147,7 +147,7 @@ function delete_group(id){
     });
 }
 function update_status(i_id){
-	var i_status = $("#test-"+i_id).parent().attr('data');		
+	var i_status = $("#test-"+i_id).parent().attr('data');
 	$.ajax({
       type: 'post',
       url: 'users/test-ajax',
@@ -156,7 +156,7 @@ function update_status(i_id){
       success: function(data) {
       	//console.log(data);return;
     	  if(data.status == 'ok'){
-    	  	//alert('ok');   	    	  	
+    	  	//alert('ok');
     	  	if(i_status == 1){
     	  		$("#test-"+i_id).removeClass('fa-check');
     	  		$("#test-"+i_id).addClass('fa-lock');
@@ -167,9 +167,9 @@ function update_status(i_id){
     	  		$("#test-"+i_id).addClass('fa-check');
     	  		$("#test-"+i_id).parent().attr('data',1);
     	  	}
-    	  }   	    	  
+    	  }
       }
-    });	
+    });
 }
 function created_room(){
 	var r_name   = $('#room-name').val();
@@ -368,7 +368,7 @@ function delete_event(){
             else{
             	$('#delete_event').modal('hide');
             	$('#error').modal('show');
-				$('#error').find('.modal-body h3').text(data.error);
+							$('#error').find('.modal-body h3').text(data.error);
             }
         }
     });
@@ -399,5 +399,96 @@ function search_empty(){
 			}
 		}
 	});
+	}
+}
+
+function created_user_index(){
+	var fullname   = $('#fullname').val();
+	var password    = $('#password').val();
+	var r_password    = $('#re-password').val();
+	var groups    = $('#groups').val();
+	var email       = $('#email').val();
+	var birthday       = $('#birthday').val();
+	var phone       = $('#phone').val();
+	var location       = $('#location').val();
+	var certificate       = $('#certificate').val();
+	var myFile       = $('#myFile').val();
+	var check = true;
+	if(fullname == ''){
+		$('.lblErrFullname').show();
+		check = false;
+	}else{
+		$('.lblErrFullname').hide();
+	}
+	if(email == ''){
+		$('.lblErrEmail').show();
+		check = false;
+	}else{
+		$('.lblErrEmail').hide();
+	}
+	if(password == ''){
+		$('.lblErrPassword').show();
+		check = false;
+	}else{
+		$('.lblErrPassword').hide();
+	}
+	if(password != r_password){
+		$('.lblErrRpassword').show();
+		check = false;
+	}else{
+		$('.lblErrRpassword').hide();
+	}
+	if(birthday == ""){
+		$('.lblErrbirthday').show();
+		check = false;
+	}else{
+		$('.lblErrbirthday').hide();
+	}
+	if(phone == ""){
+		$('.lblErrphone').show();
+		check = false;
+	}else{
+		$('.lblErrphone').hide();
+	}
+	if(location == ""){
+		$('.lblErrlocation').show();
+		check = false;
+	}else{
+		$('.lblErrlocation').hide();
+	}
+	if(certificate == ""){
+		$('.lblErrcertificate').show();
+		check = false;
+	}else{
+		$('.lblErrcertificate').hide();
+	}
+	if(check){
+		$.ajax({
+			type: 'post',
+			url: 'created-user',
+			data:  {
+				fullname: fullname,
+				password: password,
+				email: email,
+				groups: groups,
+				birthday: birthday,
+				phone: phone,
+				location: location,
+				certificate: certificate,
+				myFile: myFile
+			},
+			dataType:"json",
+			success: function(data) {
+				if(data.status == 'success'){
+					$('#created-user').modal('hide');
+					$('#success').modal('show');
+					$('#success').find('.modal-body h3').text(data.message);
+				}
+				else{
+					$('#error').modal('show');
+					$('#error').find('.modal-body h3').text(data.message);
+				}
+			}
+		});
 	}
 }

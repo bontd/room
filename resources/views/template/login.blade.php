@@ -23,7 +23,9 @@
         </script>
         <style type="text/css">
             body{
-                background-color: #eaeaea;
+              background:url(images/bgtop.jpg) no-repeat;
+              background-size: cover;
+              height:100%;
             }
         </style>
     </head>

@@ -39,7 +39,7 @@
                     <div class="col-xs-3 pull-right">
                         <h5 class="text-right">
                             <div class="dropdown">
-                                <label class="control-label" style="color: #fff;">Welcome: {{$name_user}}</label>
+                                <label class="control-label" style="color: #fff;">{{$name_user or "other"}}</label>
                                 <a href="" class="btn dropdown-toggle" data-toggle="dropdown">
                                     <span style="color: #fff;cursor: pointer;"><span class="caret"></span></span>
                                 </a>
@@ -50,12 +50,14 @@
                                     <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i> Calendar</a></li>
                                     <div class="dropdown-divider"></div>
                                     <!-- <li><a href="#" data-toggle="modal" data-target="#changePassword"><i class="fa fa-lock"></i> Change password</a></li> -->
-                                    <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i> Log out</a></li>
-                                @else
-                                    <!-- <li><a href="#" data-toggle="modal" data-target="#changePassword"><i class="fa fa-lock"></i> Change password</a></li> -->
+                                    <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>
+                                @elseif($type_user == "2")
                                     <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i> Calendar</a></li>
                                     <li><a href="{{url('/index')}}"><i class="fa fa-calendar"></i> Index</a></li>
-                                    <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i> Log out</a></li>
+                                    <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>
+                                @else
+                                    <li><a href="{{url('/login')}}"><i class="fa fa-sign-out"></i> Login</a></li>
+                                    <li><a href="{{url('/index/register')}}"><i class="fa fa-sign-out"></i> Register</a></li>
                                 @endif
                                 </ul>
                             </div>
@@ -70,6 +72,9 @@
 
         @yield('content')
 
+        <div id="back-to-top">
+          <i class="fa fa-chevron-circle-up"></i>
+        </div>
     </section>
     <div id="error" class="modal fade" role="dialog">
         <div class="modal-dialog">
@@ -104,7 +109,7 @@
                     <h4 class="modal-title">Success</h4>
                 </div>
                 <div class="modal-body">
-                    <h3></h3>
+                    <h3 style="color:green;"></h3>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" onclick="close_user();">Close</button>
@@ -138,6 +143,29 @@
                 allowBlank          : true,
                 inlineDropdown      : true
             });
+        });
+
+        jQuery(document).ready(function ($) {
+        	if ($(window).scrollTop() > 200) {
+                    	$('#back-to-top').fadeIn();
+                } else {
+                    	$('#back-to-top').fadeOut();
+                }
+
+        	$(window).scroll(function () {
+        	        if ($(this).scrollTop() > 200) {
+        			$('#back-to-top').fadeIn();
+        	        } else {
+        	            	$('#back-to-top').fadeOut();
+        	        }
+        	});
+
+        	$('#back-to-top').click(function () {
+        	        $("html, body").animate({
+        	            	scrollTop: 0
+        	        }, 600);
+        	        return false;
+        	});
         });
     </script>
 </body>
