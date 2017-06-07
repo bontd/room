@@ -38,34 +38,34 @@
                     </div>
                     <div class="col-xs-3 pull-right">
                         <h5 class="text-right">
-                            <div class="dropdown">
-                                <label class="control-label" style="color: #fff;">{{$name_user or "other"}}</label>
-                                <a href="" class="btn dropdown-toggle" data-toggle="dropdown">
-                                    <span style="color: #fff;cursor: pointer;"><span class="caret"></span></span>
-                                </a>
-                                <ul class="dropdown-menu">
+                          <div class="open">
+                            <span class="cls"></span>
+                            <span>
+                              <ul class="sub-menu">
                                 @if($type_user == 1)
-                                    <li><a href="{{url('/users')}}"><i class="fa fa-user"></i> User Manage</a></li>
-                                    <li><a href="{{url('/groups')}}"><i class="fa fa-users"></i> Group & Room Manage</a></li>
-                                    <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i> Calendar</a></li>
+                                    <li><a href="{{url('/users')}}"><i class="fa fa-user"></i>User Manage</a></li>
+                                    <li><a href="{{url('/groups')}}"><i class="fa fa-users"></i>Group & Room Manage</a></li>
+                                    <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i>Calendar</a></li>
                                     <div class="dropdown-divider"></div>
                                     <!-- <li><a href="#" data-toggle="modal" data-target="#changePassword"><i class="fa fa-lock"></i> Change password</a></li> -->
-                                    <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>
+                                    <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i>Logout</a></li>
                                 @elseif($type_user == "2")
-                                    <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i> Calendar</a></li>
-                                    <li><a href="{{url('/index')}}"><i class="fa fa-calendar"></i> Index</a></li>
-                                    <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>
+                                    <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i>Calendar</a></li>
+                                    <li><a href="{{url('/index')}}"><i class="fa fa-home"></i>Index</a></li>
+                                    <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i>Logout</a></li>
                                 @else
-                                    <li><a href="{{url('/login')}}"><i class="fa fa-sign-out"></i> Login</a></li>
-                                    <li><a href="{{url('/index/register')}}"><i class="fa fa-sign-out"></i> Register</a></li>
+                                    <li><a href="{{url('/login')}}"><i class="fa fa-sign-out"></i>Login</a></li>
+                                    <li><a href="{{url('/index/register')}}"><i class="fa fa-sign-out"></i>Register</a></li>
                                 @endif
-                                </ul>
-                            </div>
+                              </ul>
+                            </span>
+                            <span
+                                class="cls"></span>
+                          </div>
                         </h5>
                     </div>
                 </div>
             </div>
-
         </div>
     </header>
     <section>
@@ -74,6 +74,25 @@
 
         <div id="back-to-top">
           <i class="fa fa-chevron-circle-up"></i>
+        </div>
+        <div id="network">
+          <a href="#">
+            <span class="fa fa-facebook-square">
+              <div id="facebook">
+                xxxxx
+              </div>
+            </span>
+          </a>
+          <a href="#"><span class="fa fa-youtube-square">
+            <div id="youtube">
+              xxxxx
+            </div>
+          </span></a>
+          <a href="#"><span class="fa fa-twitter-square">
+            <div id="twitter">
+              xxxxx
+            </div>
+          </span></a>
         </div>
     </section>
     <div id="error" class="modal fade" role="dialog">
@@ -167,6 +186,21 @@
         	        return false;
         	});
         });
+    </script>
+    <script>
+      $(document).ready(function() {
+        $(document).delegate('.open', 'click', function(event) {
+          $(this).addClass('oppenned');
+          event.stopPropagation();
+        })
+        $(document).delegate('body', 'click', function(event) {
+          $('.open').removeClass('oppenned');
+        })
+        $(document).delegate('.cls', 'click', function(event) {
+          $('.open').removeClass('oppenned');
+          event.stopPropagation();
+        });
+      });
     </script>
 </body>
 </html>

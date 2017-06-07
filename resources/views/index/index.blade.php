@@ -2,7 +2,7 @@
 @section('content')
   <div class="container">
     @foreach($get_user as $value)
-    <div class="col-md-3">
+    <!-- <div class="col-md-3">
       <div class="col-md-12 box-profile">
         <img src="{{url('/images/james.png')}}" />
         <div class="text-profile">
@@ -14,7 +14,7 @@
           <a href="javascript:void(0)" class="btn btn-info pull-right" data-toggle="modal" data-target="#detail-user-{{$value->id}}"><i class="fa fa-plus"></i></a>
         </div>
       </div>
-    </div>
+    </div> -->
     <!-- Detail user -->
     <div id="detail-user-{{$value->id}}" class="modal fade" role="dialog">
     	<div class="modal-dialog">

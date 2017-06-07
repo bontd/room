@@ -161,6 +161,7 @@ ul.dropdown-menu{
 .header {
     background: #095494;
     margin-bottom: 25px;
+    overflow: hidden;
 }
 .box_header, .box_content{
     margin-bottom: 25px;
@@ -196,7 +197,7 @@ legend.scheduler-border {
 }
 .calendar-event-inner {
     font-size: 12px;
-     background: none !important; 
+     background: none !important;
 }
 #hover_i {
     display: none;
