@@ -18,5 +18,13 @@ class Users extends Model {
 				->first();
 		return $email;
 	}
+	public function getusers_group(){
+		$db = DB::table('users')
+				->join('groups', 'users.group_id', '=', 'groups.id')
+				->select('users.*','groups.g_name')
+				->where('groups.g_name','Football')
+				->get();
+				return $db;
+	}
 
 }

@@ -4,15 +4,15 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="shortcut icon" href="{{asset('public/logo.ico')}}" type="image/x-icon" />
         <title>Book Meeting</title>
-        <link rel="stylesheet" href="{{asset('css/style.css')}}">
-        <link rel="stylesheet" href="{{asset('css/stylesheet.css')}}">
-        <link rel="stylesheet" href="{{asset('css/jquery-ui.min.css')}}">
-        <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
-        <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-        <link rel="stylesheet" href="{{url('css/datatable.css')}}">
-        <link rel="stylesheet" href="{{url('css/font-awesome.css')}}">
-        <script src="{{url('js/jquery.min.js')}}"></script>
-        <script src="{{url('js/jquery.dataTables.min.js')}}"></script>
+        <link rel="stylesheet" href="{{asset('public/css/style.css')}}">
+        <link rel="stylesheet" href="{{asset('public/css/stylesheet.css')}}">
+        <link rel="stylesheet" href="{{asset('public/css/jquery-ui.min.css')}}">
+        <link rel="stylesheet" href="{{asset('public/css/bootstrap.css')}}">
+        <link rel="stylesheet" href="{{asset('public/css/bootstrap.min.css')}}">
+        <link rel="stylesheet" href="{{url('public/css/datatable.css')}}">
+        <link rel="stylesheet" href="{{url('public/css/font-awesome.css')}}">
+        <script src="{{url('public/js/jquery.min.js')}}"></script>
+        <script src="{{url('public/js/jquery.dataTables.min.js')}}"></script>
         <script type="text/javascript">
             $(document).ready(function() {
             $('#example').DataTable();
@@ -23,7 +23,7 @@
         </script>
         <style type="text/css">
             body{
-              background:url(images/bgtop.jpg) no-repeat;
+              background:url(public/images/bgtop.jpg) no-repeat;
               background-size: cover;
               height:100%;
             }
@@ -68,9 +68,9 @@
             </div>
         </div>
         <!-- Script -->
-        <script src="{{url('/js/ajax.js')}}"></script>
+        <script src="{{url('public/js/ajax.js')}}"></script>
 	    <!-- Include all compiled plugins (below), or include individual files as needed -->
-	    <script src="{{url('/js/bootstrap.min.js')}}"></script>
+	    <script src="{{url('public/js/bootstrap.min.js')}}"></script>
 	    <meta name="csrf-token" content="{{ csrf_token() }}" />
     </body>
 </html>

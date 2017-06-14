@@ -12,9 +12,15 @@ class UsersTableSeeder extends Seeder
     public function run()
     {
       DB::table('users')->insert([
-          'name' => 'admin@gmail.com',
+          'name' => 'Administrator',
           'email' => 'admin@gmail.com',
           'password' => md5('admin'),
+          'group_id' => 1,
+          'birthday' => '1990-01-01',
+          'phone'    => '0963551594',
+          'location' => 'ND',
+          'certificate' => 'DH',
+          'image'    => 'avatar.png',
           'remember_token' => 1
       ]);
     }

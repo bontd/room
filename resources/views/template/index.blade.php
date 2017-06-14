@@ -4,21 +4,22 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="shortcut icon" href="{{asset('public/logo.ico')}}" type="image/x-icon" />
     <title>Book Meeting</title>
-    <link rel="stylesheet" href="{{asset('css/style.css')}}">
-    <link rel="stylesheet" href="{{asset('css/stylesheet.css')}}">
-    <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
-    <link rel="stylesheet" href="{{asset('css/bootstrap.min.css')}}">
-    <link rel="stylesheet" href="{{url('css/datatable.css')}}">
-    <link rel="stylesheet" href="{{url('css/font-awesome.css')}}">
-    <link href="{{url('css/fullcalendar.min.css')}}" rel='stylesheet' />
-    <link href="{{url('css/fullcalendar.print.min.css')}}" rel='stylesheet' media='print' />
-    <link rel="stylesheet" href="{{url('build/jquery.datetimepicker.min.css')}}">
-    <link rel="stylesheet" href="{{asset('css/pick-a-color-1.2.3.min.css')}}">
-    <script src="{{url('js/jquery.min.js')}}"></script>
-    <script src="{{url('js/jquery.dataTables.min.js')}}"></script>
-    <script src="{{url('lib/moment.min.js')}}"></script>
-    <script src="{{url('js/fullcalendar.min.js')}}"></script>
-    <script src="{{url('lib/fullcalendar.js')}}"></script>
+    <link rel="stylesheet" href="{{asset('public/css/style.css')}}">
+    <link rel="stylesheet" href="{{asset('public/css/stylesheet.css')}}">
+    <link rel="stylesheet" href="{{asset('public/css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('public/css/bootstrap.min.css')}}">
+    <link rel="stylesheet" href="{{url('public/css/datatable.css')}}">
+    <link rel="stylesheet" href="{{url('public/css/font-awesome.css')}}">
+    <link href="{{url('public/css/fullcalendar.min.css')}}" rel='stylesheet' />
+    <link href="{{url('public/css/fullcalendar.print.min.css')}}" rel='stylesheet' media='print' />
+    <link rel="stylesheet" href="{{url('public/build/jquery.datetimepicker.min.css')}}">
+    <link rel="stylesheet" href="{{asset('public/css/pick-a-color-1.2.3.min.css')}}">
+    <script src="{{url('public/js/jquery.min.js')}}"></script>
+    <script src="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <script src="{{url('public/js/jquery.dataTables.min.js')}}"></script>
+    <script src="{{url('public/lib/moment.min.js')}}"></script>
+    <script src="{{url('public/js/fullcalendar.min.js')}}"></script>
+    <script src="{{url('public/lib/fullcalendar.js')}}"></script>
     <script type="text/javascript">
         $(document).ready(function() {
         $('#example').DataTable();
@@ -27,72 +28,195 @@
         $('#example2').DataTable();
           } );
     </script>
+
+<script type="text/javascript">
+    var isSign = false;
+    var leftMButtonDown = false;
+
+    jQuery(function(){
+    //Initialize sign pad
+    init_Sign_Canvas();
+    });
+
+    function fun_submit() {
+    if(isSign) {
+    var canvas = $("#canvas").get(0);
+    var imgData = canvas.toDataURL();
+    jQuery('#page').find('p').remove();
+    jQuery('#page').find('img').remove();
+    jQuery('#page').append(jQuery('<p>Your Sign:</p>'));
+    jQuery('#page').append($('<img/>').attr('src',imgData));
+
+    closePopUp();
+    } else {
+    alert('Please sign');
+    }
+    }
+
+    function closePopUp() {
+    jQuery('#divPopUpSignContract').popup('close');
+    jQuery('#divPopUpSignContract').popup('close');
+    }
+
+    function init_Sign_Canvas() {
+    isSign = false;
+    leftMButtonDown = false;
+
+    //Set Canvas width
+    var sizedWindowWidth =$('#div_signcontract').width();
+    if(sizedWindowWidth > 700)
+    sizedWindowWidth = $(window).width() / 2;
+    else if(sizedWindowWidth > 400)
+    sizedWindowWidth = sizedWindowWidth - 50;
+    else
+    sizedWindowWidth = sizedWindowWidth - 20;
+
+     $("#canvas").width(sizedWindowWidth);
+     $("#canvas").height(200);
+     $("#canvas").css("border","1px solid #000");
+
+     var canvas = $("#canvas").get(0);
+
+     canvasContext = canvas.getContext('2d');
+
+     if(canvasContext)
+     {
+     canvasContext.canvas.width  = sizedWindowWidth;
+     canvasContext.canvas.height = 200;
+
+     canvasContext.fillStyle = "#fff";
+     canvasContext.fillRect(0,0,sizedWindowWidth,200);
+
+     canvasContext.moveTo(50,150);
+     canvasContext.lineTo(sizedWindowWidth-50,150);
+     canvasContext.stroke();
+
+     canvasContext.fillStyle = "#000";
+     canvasContext.font="20px Arial";
+     canvasContext.fillText("x",40,155);
+     }
+
+     $(canvas).on('vmousedown', function (e) {
+     if(e.which === 1) {
+     leftMButtonDown = true;
+     canvasContext.fillStyle = "#000";
+     var x = e.pageX - $(e.target).offset().left;
+     var y = e.pageY - $(e.target).offset().top;
+     canvasContext.moveTo(x, y);
+     }
+     e.preventDefault();
+     return false;
+     });
+
+     $(canvas).on('vmouseup', function (e) {
+     if(leftMButtonDown && e.which === 1) {
+     leftMButtonDown = false;
+     isSign = true;
+     }
+     e.preventDefault();
+     return false;
+     });
+
+     // draw a line from the last point to this one
+     $(canvas).bind('vmousemove', function (e) {
+     if(leftMButtonDown == true) {
+     canvasContext.fillStyle = "#000";
+     var x = e.pageX - $(e.target).offset().left;
+     var y = e.pageY - $(e.target).offset().top;
+     canvasContext.lineTo(x,y);
+     canvasContext.stroke();
+     }
+     e.preventDefault();
+     return false;
+     });
+    }
+</script>
 </head>
 <body>
     <header>
         <div class="header">
-            <div class="container">
-                <div class="row">
-                    <div class="col-xs-5 pull-left">
-                        <h3 style="font-weight: bold; line-height: 11px;"><a href="{{url('/index')}}" style="text-decoration: none;color: #fff;">Room</a></h3>
+          <div class="row">
+              <div class="col-xs-5 pull-left">
+                  <div style="font-weight: bold; font-size:40px;margin-left:30px; line-height: 55px;">
+                    <a href="{{url('/index')}}" style="text-decoration: none;color: #fff;">
+                      <!-- <i class="fa fa-pagelines"></i> -->
+                      Meeting Room
+                    </a>
+                  </div>
+              </div>
+              <div class="col-xs-3 pull-right">
+                  <h5 class="text-right">
+                    <div class="open">
+                      <span class="cls"></span>
+                      <span>
+                        <ul class="sub-menu">
+                          @if($type_user == 1)
+                              <li><a href="{{url('/users')}}"><i class="fa fa-user"></i>User Manage</a></li>
+                              <li><a href="{{url('/groups')}}"><i class="fa fa-users"></i>Group & Room Manage</a></li>
+                              <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i>Calendar</a></li>
+                              <div class="dropdown-divider"></div>
+                              <!-- <li><a href="#" data-toggle="modal" data-target="#changePassword"><i class="fa fa-lock"></i> Change password</a></li> -->
+                              <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i>Logout</a></li>
+                          @elseif($type_user == "2")
+                              <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i>Calendar</a></li>
+                              <li><a href="{{url('/index')}}"><i class="fa fa-home"></i>Index</a></li>
+                              <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i>Logout</a></li>
+                          @else
+                              <li><a href="{{url('/login')}}"><i class="fa fa-sign-out"></i>Login</a></li>
+                              <li><a href="{{url('/index/register')}}"><i class="fa fa-sign-out"></i>Register</a></li>
+                          @endif
+                        </ul>
+                      </span>
+                      <span
+                          class="cls"></span>
                     </div>
-                    <div class="col-xs-3 pull-right">
-                        <h5 class="text-right">
-                          <div class="open">
-                            <span class="cls"></span>
-                            <span>
-                              <ul class="sub-menu">
-                                @if($type_user == 1)
-                                    <li><a href="{{url('/users')}}"><i class="fa fa-user"></i>User Manage</a></li>
-                                    <li><a href="{{url('/groups')}}"><i class="fa fa-users"></i>Group & Room Manage</a></li>
-                                    <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i>Calendar</a></li>
-                                    <div class="dropdown-divider"></div>
-                                    <!-- <li><a href="#" data-toggle="modal" data-target="#changePassword"><i class="fa fa-lock"></i> Change password</a></li> -->
-                                    <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i>Logout</a></li>
-                                @elseif($type_user == "2")
-                                    <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i>Calendar</a></li>
-                                    <li><a href="{{url('/index')}}"><i class="fa fa-home"></i>Index</a></li>
-                                    <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i>Logout</a></li>
-                                @else
-                                    <li><a href="{{url('/login')}}"><i class="fa fa-sign-out"></i>Login</a></li>
-                                    <li><a href="{{url('/index/register')}}"><i class="fa fa-sign-out"></i>Register</a></li>
-                                @endif
-                              </ul>
-                            </span>
-                            <span
-                                class="cls"></span>
-                          </div>
-                        </h5>
-                    </div>
-                </div>
-            </div>
+                  </h5>
+              </div>
+          </div>
         </div>
     </header>
     <section>
-
-        @yield('content')
-
         <div id="back-to-top">
           <i class="fa fa-chevron-circle-up"></i>
         </div>
-        <div id="network">
-          <a href="#">
-            <span class="fa fa-facebook-square">
+        <div id="network" class="col-md-2 col-sm-2">
+          <div id="search">
+            <input type="search" name="search" required="required" />
+            <button type="button" class="btn btn-info fa fa-search"></button>
+          </div>
+          <ul>
+            <li><span class="fa fa-newspaper-o"></span> news</li>
+            <li><i class="fa fa-user"></i> profile</li>
+            <li><i class="fa fa-map-marker"></i> location</li>
+          </ul>
+        </div>
+        <div id="news_page" class="col-md-8 col-sm-8">
+          @yield('content')
+        </div>
+
+        <div id="bottom-network">
+          <!-- <a href="http://Facebook.com">
+            <span class="fa fa-facebook-square" style="color:#095494;">
               <div id="facebook">
-                xxxxx
+                Facebook
               </div>
             </span>
           </a>
-          <a href="#"><span class="fa fa-youtube-square">
+          <a href="http://youtube.com"><span class="fa fa-youtube-square" style="color:red;">
             <div id="youtube">
-              xxxxx
+              Youtube
             </div>
           </span></a>
-          <a href="#"><span class="fa fa-twitter-square">
+          <a href="http://twitter.com"><span class="fa fa-twitter-square" style="color: #55acee;">
             <div id="twitter">
-              xxxxx
+              Twitter
             </div>
           </span></a>
+          <a href="http://instagram.com"><span class="fa fa-instagram" style="color: #f04e4e;">
+            <div id="instagram">
+              instagram
+            </div>
+          </span></a> -->
         </div>
     </section>
     <div id="error" class="modal fade" role="dialog">
@@ -137,17 +261,17 @@
         </div>
     </div>
     <div id="icon-loading" >
-        <img src="{{url('images/icon-loading.gif')}}" width="100">
+        <img src="{{url('public/images/icon-loading.gif')}}" width="100">
     </div>
     <!-- Script -->
-    <script src="{{url('/js/ajax.js')}}"></script>
-    <script src="{{url('/js/common.js')}}"></script>
+    <script src="{{url('public//js/ajax.js')}}"></script>
+    <script src="{{url('public//js/common.js')}}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="{{url('/js/bootstrap.min.js')}}"></script>
-    <script src="{{url('/build/jquery.datetimepicker.full.js')}}"></script>
-    <script src="{{url('/js/datetimepicker.js')}}"></script>
-    <script src="{{asset('js/pick-a-color-1.2.3.min.js')}}"></script>
-    <script src="{{asset('js/tinycolor-0.9.15.min.js')}}"></script>
+    <script src="{{url('public//js/bootstrap.min.js')}}"></script>
+    <script src="{{url('public//build/jquery.datetimepicker.full.js')}}"></script>
+    <script src="{{url('public//js/datetimepicker.js')}}"></script>
+    <script src="{{asset('public/js/pick-a-color-1.2.3.min.js')}}"></script>
+    <script src="{{asset('public/js/tinycolor-0.9.15.min.js')}}"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script type="text/javascript">
         $(document).ready(function () {

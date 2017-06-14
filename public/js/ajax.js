@@ -92,7 +92,8 @@ function update_user(id){
 function close_user(){
 	$('#created-user').modal('hide');
 	$('#success').modal('hide');
-	window.location.href = '/laravel/room/public/index';
+	// window.location.href = '/laravel/room/public/index';
+	window.location.reload();
 }
 function close_all(){
 	$('#created-user').modal('hide');

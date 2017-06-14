@@ -1,10 +1,54 @@
 @extends('template.index')
 @section('content')
   <div class="container">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#divPopUpSignContract">Open Modal</button>
+      <!-- Modal -->
+      <div id="divPopUpSignContract" class="modal fade" role="dialog" data-backdrop="static">
+        <div class="modal-dialog">
+
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Modal Header</h4>
+            </div>
+            <div class="modal-body">
+              <div class="ui-content popUpHeight">
+                <div id="div_signcontract">
+                  <canvas id="canvas">Canvas is not supported</canvas>
+                  <div>
+                    <input id="btnSubmitSign" type="button" data-inline="true" data-mini="true" data-theme="b" value="Submit Sign" onclick="fun_submit()" />
+                    <input id="btnClearSign" type="button" data-inline="true" data-mini="true" data-theme="b" value="news" onclick="init_Sign_Canvas()" />
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+
+        </div>
+      </div>
+      @foreach($get_typeuser as $value)
+      <!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+        <div class="col-md-12 box-profile">
+          <img src="{{url('public/images/'.$value->image)}}" />
+          <div class="text-profile">
+            <h4>{{$value->name}}</h4>
+            <p>Birthday: {{$value->birthday}}</p>
+            <p>Certificate: {{$value->certificate}}</p>
+            <a href="javascript:void(0)" class="btn btn-info pull-right" data-toggle="modal" data-target="#detail-user-{{$value->id}}"><i class="fa fa-plus"></i></a>
+          </div>
+        </div>
+      </div> -->
+      @endforeach
+    </div>
     @foreach($get_user as $value)
     <!-- <div class="col-md-3">
       <div class="col-md-12 box-profile">
-        <img src="{{url('/images/james.png')}}" />
+        <img src="{{url('public/images/'.$value->image)}}" />
         <div class="text-profile">
           <h4>{{$value->name}}</h4>
           <p>Birthday: {{$value->birthday}}</p>
@@ -40,7 +84,7 @@
       					<p>{{$value->email}}</p>
               </div>
               <div class="col-md-4 col-sm-4 detail-image">
-                <img src="{{url('/images/'.$value->image)}}" />
+                <img src="{{url('public/images/'.$value->image)}}" />
               </div>
             </div>
     			</div>

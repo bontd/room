@@ -22,6 +22,7 @@ class IndexController extends Controller
       $rooms = new Rooms();
       $home = new Homes();
       $get_user = $users->getusers();
+      $get_typeuser = $users->getusers_group();
       $g_group = $groups->getgroup();
       $g_room = $rooms->getRoom();
       $event = $home->getevent();
@@ -29,8 +30,9 @@ class IndexController extends Controller
       $name_user = session::get('admin_name');
       $id_user = session::get('admin_id');
       $type_user = session::get('admin_type');
-
-      return view('index.index',['name_user'=>$name_user,'id_user'=>$id_user,'g_group'=>$g_group,'g_room'=>$g_room,'type_user'=>$type_user,'get_user'=>$get_user,'g_data'=>$g_data]);
+      // echo '<pre>';
+      // print_r($get_typeuser);die;
+      return view('index.index',['name_user'=>$name_user,'id_user'=>$id_user,'g_group'=>$g_group,'g_room'=>$g_room,'type_user'=>$type_user,'get_user'=>$get_user,'g_data'=>$g_data,'get_typeuser'=>$get_typeuser]);
 
     }
 
