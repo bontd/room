@@ -22,7 +22,7 @@ class Users extends Model {
 		$db = DB::table('users')
 				->join('groups', 'users.group_id', '=', 'groups.id')
 				->select('users.*','groups.g_name')
-				->where('groups.g_name','Football')
+				// ->where('groups.g_name','Football')
 				->get();
 				return $db;
 	}

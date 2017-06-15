@@ -15,11 +15,13 @@
     <link rel="stylesheet" href="{{url('public/build/jquery.datetimepicker.min.css')}}">
     <link rel="stylesheet" href="{{asset('public/css/pick-a-color-1.2.3.min.css')}}">
     <script src="{{url('public/js/jquery.min.js')}}"></script>
-    <script src="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script>
+    <!-- <script src="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script> -->
+    <!-- <script src="{{url('public/js/jquery.mobile.min.js')}}"></script> -->
     <script src="{{url('public/js/jquery.dataTables.min.js')}}"></script>
     <script src="{{url('public/lib/moment.min.js')}}"></script>
     <script src="{{url('public/js/fullcalendar.min.js')}}"></script>
     <script src="{{url('public/lib/fullcalendar.js')}}"></script>
+
     <script type="text/javascript">
         $(document).ready(function() {
         $('#example').DataTable();
@@ -29,108 +31,7 @@
           } );
     </script>
 
-<script type="text/javascript">
-    var isSign = false;
-    var leftMButtonDown = false;
-
-    jQuery(function(){
-    //Initialize sign pad
-    init_Sign_Canvas();
-    });
-
-    function fun_submit() {
-    if(isSign) {
-    var canvas = $("#canvas").get(0);
-    var imgData = canvas.toDataURL();
-    jQuery('#page').find('p').remove();
-    jQuery('#page').find('img').remove();
-    jQuery('#page').append(jQuery('<p>Your Sign:</p>'));
-    jQuery('#page').append($('<img/>').attr('src',imgData));
-
-    closePopUp();
-    } else {
-    alert('Please sign');
-    }
-    }
-
-    function closePopUp() {
-    jQuery('#divPopUpSignContract').popup('close');
-    jQuery('#divPopUpSignContract').popup('close');
-    }
-
-    function init_Sign_Canvas() {
-    isSign = false;
-    leftMButtonDown = false;
-
-    //Set Canvas width
-    var sizedWindowWidth =$('#div_signcontract').width();
-    if(sizedWindowWidth > 700)
-    sizedWindowWidth = $(window).width() / 2;
-    else if(sizedWindowWidth > 400)
-    sizedWindowWidth = sizedWindowWidth - 50;
-    else
-    sizedWindowWidth = sizedWindowWidth - 20;
-
-     $("#canvas").width(sizedWindowWidth);
-     $("#canvas").height(200);
-     $("#canvas").css("border","1px solid #000");
-
-     var canvas = $("#canvas").get(0);
-
-     canvasContext = canvas.getContext('2d');
-
-     if(canvasContext)
-     {
-     canvasContext.canvas.width  = sizedWindowWidth;
-     canvasContext.canvas.height = 200;
-
-     canvasContext.fillStyle = "#fff";
-     canvasContext.fillRect(0,0,sizedWindowWidth,200);
-
-     canvasContext.moveTo(50,150);
-     canvasContext.lineTo(sizedWindowWidth-50,150);
-     canvasContext.stroke();
-
-     canvasContext.fillStyle = "#000";
-     canvasContext.font="20px Arial";
-     canvasContext.fillText("x",40,155);
-     }
-
-     $(canvas).on('vmousedown', function (e) {
-     if(e.which === 1) {
-     leftMButtonDown = true;
-     canvasContext.fillStyle = "#000";
-     var x = e.pageX - $(e.target).offset().left;
-     var y = e.pageY - $(e.target).offset().top;
-     canvasContext.moveTo(x, y);
-     }
-     e.preventDefault();
-     return false;
-     });
-
-     $(canvas).on('vmouseup', function (e) {
-     if(leftMButtonDown && e.which === 1) {
-     leftMButtonDown = false;
-     isSign = true;
-     }
-     e.preventDefault();
-     return false;
-     });
-
-     // draw a line from the last point to this one
-     $(canvas).bind('vmousemove', function (e) {
-     if(leftMButtonDown == true) {
-     canvasContext.fillStyle = "#000";
-     var x = e.pageX - $(e.target).offset().left;
-     var y = e.pageY - $(e.target).offset().top;
-     canvasContext.lineTo(x,y);
-     canvasContext.stroke();
-     }
-     e.preventDefault();
-     return false;
-     });
-    }
-</script>
+<script type="text/javascript" src="{{url('public/js/canvas.js')}}"></script>
 </head>
 <body>
     <header>
@@ -139,13 +40,25 @@
               <div class="col-xs-5 pull-left">
                   <div style="font-weight: bold; font-size:40px;margin-left:30px; line-height: 55px;">
                     <a href="{{url('/index')}}" style="text-decoration: none;color: #fff;">
-                      <!-- <i class="fa fa-pagelines"></i> -->
-                      Meeting Room
+                      <i class="fa fa-pagelines"></i>
                     </a>
                   </div>
               </div>
-              <div class="col-xs-3 pull-right">
+              <div class="col-xs-2 pull-right">
                   <h5 class="text-right">
+                    @if($type_user == 1)
+                    <div id="status-header">
+                      <img src="{{url('public/images/'.$image)}}"/>
+                      <label class="control-label" style="color: #fff;">{{$name_user or ""}}</label>
+                    </div>
+                    @elseif($type_user == 2)
+                    <div id="status-header">
+                      <img src="{{url('public/images/'.$image)}}"/>
+                      <label class="control-label" style="color: #fff;">{{$name_user or ""}}</label>
+                    </div>
+                    @else
+
+                    @endif
                     <div class="open">
                       <span class="cls"></span>
                       <span>
@@ -157,7 +70,7 @@
                               <div class="dropdown-divider"></div>
                               <!-- <li><a href="#" data-toggle="modal" data-target="#changePassword"><i class="fa fa-lock"></i> Change password</a></li> -->
                               <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i>Logout</a></li>
-                          @elseif($type_user == "2")
+                          @elseif($type_user == 2)
                               <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i>Calendar</a></li>
                               <li><a href="{{url('/index')}}"><i class="fa fa-home"></i>Index</a></li>
                               <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i>Logout</a></li>
@@ -181,17 +94,30 @@
         </div>
         <div id="network" class="col-md-2 col-sm-2">
           <div id="search">
-            <input type="search" name="search" required="required" />
+            <input type="search" required="required" id="abc" placeholder="1321231232" />
             <button type="button" class="btn btn-info fa fa-search"></button>
           </div>
           <ul>
-            <li><span class="fa fa-newspaper-o"></span> news</li>
-            <li><i class="fa fa-user"></i> profile</li>
-            <li><i class="fa fa-map-marker"></i> location</li>
+            <a href="#"><li><span class="fa fa-newspaper-o"></span> news</li></a>
+            <a href="#"><li><i class="fa fa-user"></i> profile</li></a>
+            <a href="#"><li><i class="fa fa-map-marker"></i> location</li></a>
+            <a href="#" data-toggle="modal" data-target="#divPopUpSignContract"><li><i class="fa fa-pencil"></i></li></a>
           </ul>
         </div>
-        <div id="news_page" class="col-md-8 col-sm-8">
+        <div class="col-md-10 col-sm-10" style="margin:10px 0 0;">
           @yield('content')
+        </div>
+        <div id="footer" class="nav nav-pills nav-stacked col-md-12">
+          <div class="col-md-6 footer-bar-left">
+            Copyright © 2017 BTD, All Right Reserved
+          </div>
+          <div class="col-md-6 footer-bar-right">
+            <ul>
+              <li>Profile</li>
+              <li>location</li>
+              <li>help</li>
+            </ul>
+          </div>
         </div>
 
         <div id="bottom-network">
@@ -219,6 +145,33 @@
           </span></a> -->
         </div>
     </section>
+    <!-- Canvas -->
+    <div id="divPopUpSignContract" class="modal fade" role="dialog" data-backdrop="static">
+      <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">&times;</button>
+            <h4 class="modal-title">Modal Header</h4>
+          </div>
+          <div class="modal-body">
+            <div class="ui-content popUpHeight">
+              <div id="div_signcontract" style="margin-left:7%;">
+                <canvas id="canvas">Canvas is not supported</canvas>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <input id="btnSubmitSign" class="btn btn-info pull-left" type="button" data-inline="true" data-mini="true" data-theme="b" value="Submit Sign" onclick="fun_submit()" />
+            <input id="btnClearSign" class="btn btn-info pull-left" type="button" data-inline="true" data-mini="true" data-theme="b" value="news" onclick="init_Sign_Canvas()" />
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!-- End Canvas -->
     <div id="error" class="modal fade" role="dialog">
         <div class="modal-dialog">
 
@@ -274,6 +227,9 @@
     <script src="{{asset('public/js/tinycolor-0.9.15.min.js')}}"></script>
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script type="text/javascript">
+    $(document).ready(function(){
+        $('.nav').affix({offset: {top: 220} });
+    });
         $(document).ready(function () {
             $(".pick-a-color").pickAColor({
               showSpectrum            : true,
@@ -325,6 +281,8 @@
           event.stopPropagation();
         });
       });
+
+
     </script>
 </body>
 </html>

@@ -29,7 +29,8 @@ class UsersController extends Controller
         $name_user = session::get('admin_name');
         $id_user = session::get('admin_id');
         $type_user = session::get('admin_type');
-    	return view('users.index',['users'=>$get_user,'g_data'=>$g_data,'name_user'=>$name_user,'id_user'=>$id_user,'type_user'=>$type_user]);
+        $image = session::get('admin_img');
+    	return view('users.index',['image'=>$image,'users'=>$get_user,'g_data'=>$g_data,'name_user'=>$name_user,'id_user'=>$id_user,'type_user'=>$type_user]);
     }
     public function created(){
     	$o_response = new \stdclass();
@@ -150,7 +151,7 @@ class UsersController extends Controller
             // chuyển query ra ngoài cho dễ nhìn
 
             $b_check = DB::table('users')
-                ->select('id','name','email','password','remember_token')
+                ->select('id','name','email','password','image','remember_token')
                 ->where('email',$email)
                 ->where('password',md5($password))
                 // thêm
@@ -163,6 +164,7 @@ class UsersController extends Controller
                 session::put('login',TRUE);
                 session::put('admin_id',$b_check->id);
                 session::put('admin_name',$b_check->name);
+                session::put('admin_img',$b_check->image);
                 session::put('admin_type',$b_check->remember_token);
                 //echo "abc";
                 return redirect()->action('IndexController@index');
@@ -176,6 +178,7 @@ class UsersController extends Controller
         session::forget('admin_id');
         session::forget('admin_name');
         session::forget('admin_type');
+        session::forget('admin_img');
         return redirect('index');
     }
 }

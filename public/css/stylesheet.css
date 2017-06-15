@@ -1,4 +1,10 @@
 *{padding: 0;margin: 0;}
+html {
+	height: 100%;
+}
+body {
+	height: 100%;
+}
 .container{
 	margin: 0 0 20px 0;
 }
@@ -401,8 +407,8 @@ padding: 0 0 0 35px;
 }
 #back-to-top {
 	position: fixed;
-	right: 30px;
-	bottom: 30px;
+	right: 0;
+	bottom: 50px;
 	z-index: 9999;
 	font-size: 40px;
 }
@@ -443,16 +449,16 @@ padding: 0 0 0 35px;
 }
 
 .open span:first-child {
-  margin-top: 10px;
+  margin-top: 5px;
   z-index: 5
 }
 
 .open span:nth-child(2) {
-  margin-top: 25px
+  margin-top: 20px
 }
 
 .open span:nth-child(3) {
-  margin-top: 40px
+  margin-top: 35px
 }
 
 .sub-menu {
@@ -610,14 +616,12 @@ padding: 0 0 0 35px;
 }
 
 #network {
-	height: 100%;
+	height: 400px;
 	padding: 0;
 	background-color: #fff;
-	position: fixed;
-	left: 0;
-	top: 55px;
 	font-size: 30px;
 	font-size: 14px;
+	border-top: solid thin #eaeaea;
 	border-right: solid thin #eaeaea;
 }
 
@@ -626,7 +630,7 @@ padding: 0 0 0 35px;
 	margin: 0;
 }
 
-#network ul li {
+#network ul a li {
 	width: 100%!important;
 	padding: 10px 10px;
 	/*background-color: #095494;*/
@@ -635,17 +639,17 @@ padding: 0 0 0 35px;
 	border-bottom: solid thin #eaeaea;
 }
 
-#network ul li:last-child{
+#network ul a:last-child li{
 	border: none;
 }
 
-#network ul li:hover{
-	background-color: rgba(9,84,148,0.5);
+#network ul a li:hover{
+	/*background-color: rgba(9,84,148,0.5);*/
 }
 
 #search {
 	width: auto;
-	margin: 10px 10px 0 10px;
+	margin: 10px;
 	border: solid thin #eaeaea;
 }
 #network #search input {
@@ -668,106 +672,7 @@ padding: 0 0 0 35px;
 #network #search button {
 	outline: none;
 }
-#network a:hover #facebook {
-	display: block;
-}
-#network a:hover #youtube {
-	display: block;
-}
-#network a:hover #twitter {
-	display: block;
-}
-#network a:hover #instagram {
-	display: block;
-}
-#facebook {
-	position: fixed;
-	width: 100px;
-	height: 200px;
-	top: 205px;
-	left: 50px;
-	border: solid thin #eaeaea;
-	background-color: #eaeaea;
-	padding: 5px 10px;
-	display: none;
-	font-size: 12px;
-}
-#facebook::before {
-	content: '';
-	background-color: #eaeaea;
-	width: 10px;
-	height: 10px;
-	position: absolute;
-	border-top-left-radius: 50px;
-	transform: rotate(138deg);
-	margin: 0 0 0 -16px;
-}
-#youtube {
-	position: fixed;
-	width: 100px;
-	height: 200px;
-	top: 205px;
-	left: 50px;
-	border: solid thin #eaeaea;
-	background-color: #eaeaea;
-	padding: 5px 10px;
-	display: none;
-	font-size: 12px;
-}
-#youtube::before {
-	content: '';
-	background-color: #eaeaea;
-	width: 10px;
-	height: 10px;
-	position: absolute;
-	border-top-left-radius: 50px;
-	transform: rotate(138deg);
-	margin: 50px 0 0 -16px;
-}
-#twitter {
-	position: fixed;
-	width: 100px;
-	height: 200px;
-	top: 205px;
-	left: 50px;
-	border: solid thin #eaeaea;
-	background-color: #eaeaea;
-	padding: 5px 10px;
-	display: none;
-	font-size: 12px;
-}
-#twitter::before {
-	content: '';
-	background-color: #eaeaea;
-	width: 10px;
-	height: 10px;
-	position: absolute;
-	border-top-left-radius: 50px;
-	transform: rotate(138deg);
-	margin: 90px 0 0 -16px;
-}
-#instagram {
-	position: fixed;
-	width: 100px;
-	height: 200px;
-	top: 205px;
-	left: 50px;
-	border: solid thin #eaeaea;
-	background-color: #eaeaea;
-	padding: 5px 10px;
-	display: none;
-	font-size: 12px;
-}
-#instagram::before {
-	content: '';
-	background-color: #eaeaea;
-	width: 10px;
-	height: 10px;
-	position: absolute;
-	border-top-left-radius: 50px;
-	transform: rotate(138deg);
-	margin: 130px 0 0 -16px;
-}
+
 #news_page {
 	position: fixed;
 	top: 55px;
@@ -775,4 +680,49 @@ padding: 0 0 0 35px;
 }
 .modal-backdrop {
 	display: none!important;
+}
+#status-header {
+	float: left;
+}
+#status-header img {
+	width: 40px;
+	height: 40px;
+	border-radius: 50%;
+}
+.item img {
+  width: 850px;
+  height: 400px;
+}
+.well {
+  padding: 10px!important;
+  overflow: hidden;
+  margin-bottom: 10px!important;
+}
+.well img {
+  width: 110px;
+  height: 110px;
+  float: left;
+  margin: 0 10px 0 0;
+}
+#footer {
+  height: 50px;
+  border-top: solid thin #ccc;
+  bottom: 0!important;
+  background-color: #fff;
+  color: #000;
+}
+/*#search::-webkit-input-placeholder { color:#00f; }
+#search::-webkit-input-placeholder { color:#090; background:lightgreen; text-transform:uppercase; }*/
+#abc::placeholder { color:#e5e5e5!important; }
+.footer-bar-left {
+  line-height: 40px;
+}
+.footer-bar-right ul{
+  list-style: none;
+  float: right;
+}
+.footer-bar-right ul li{
+  float: left;
+  line-height: 40px;
+  margin: 0 15px;
 }

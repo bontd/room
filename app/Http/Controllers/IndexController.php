@@ -30,9 +30,10 @@ class IndexController extends Controller
       $name_user = session::get('admin_name');
       $id_user = session::get('admin_id');
       $type_user = session::get('admin_type');
+      $image = session::get('admin_img');
       // echo '<pre>';
       // print_r($get_typeuser);die;
-      return view('index.index',['name_user'=>$name_user,'id_user'=>$id_user,'g_group'=>$g_group,'g_room'=>$g_room,'type_user'=>$type_user,'get_user'=>$get_user,'g_data'=>$g_data,'get_typeuser'=>$get_typeuser]);
+      return view('index.index',['image'=>$image,'name_user'=>$name_user,'id_user'=>$id_user,'g_group'=>$g_group,'g_room'=>$g_room,'type_user'=>$type_user,'get_user'=>$get_user,'g_data'=>$g_data,'get_typeuser'=>$get_typeuser]);
 
     }
 

@@ -27,7 +27,8 @@ class GroupsController extends Controller
         $name_user = session::get('admin_name');
         $id_user = session::get('admin_id');
         $type_user = session::get('admin_type');
-        return view('groups.index',['getAllroom'=>$getAllroom,'getAllgroup'=>$getAllgroup,'name_user'=>$name_user,'id_user'=>$id_user,'type_user'=>$type_user]);
+        $image = session::get('admin_img');
+        return view('groups.index',['image'=>$image,'getAllroom'=>$getAllroom,'getAllgroup'=>$getAllgroup,'name_user'=>$name_user,'id_user'=>$id_user,'type_user'=>$type_user]);
     }
 
     /**
@@ -57,7 +58,7 @@ class GroupsController extends Controller
         else{
             $o_response->status = 'error';
             $o_response->message = 'Group already exists';
-        }       
+        }
         echo json_encode($o_response);
     }
     /**

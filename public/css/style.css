@@ -160,7 +160,7 @@ ul.dropdown-menu{
 
 .header {
     background: #095494;
-    margin-bottom: 25px;
+    /*margin-bottom: 25px;*/
     overflow: hidden;
 }
 .box_header, .box_content{

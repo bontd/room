@@ -1,103 +1,125 @@
 @extends('template.index')
 @section('content')
-  <div class="container">
-    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-      <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#divPopUpSignContract">Open Modal</button>
-      <!-- Modal -->
-      <div id="divPopUpSignContract" class="modal fade" role="dialog" data-backdrop="static">
-        <div class="modal-dialog">
+<div class="container-fluid">
+<div class="row">
+  <div class="col-sm-8">
+    <div id="myCarousel" class="carousel slide" data-ride="carousel">
+      <!-- Indicators -->
+      <ol class="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+      </ol>
 
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Modal Header</h4>
-            </div>
-            <div class="modal-body">
-              <div class="ui-content popUpHeight">
-                <div id="div_signcontract">
-                  <canvas id="canvas">Canvas is not supported</canvas>
-                  <div>
-                    <input id="btnSubmitSign" type="button" data-inline="true" data-mini="true" data-theme="b" value="Submit Sign" onclick="fun_submit()" />
-                    <input id="btnClearSign" type="button" data-inline="true" data-mini="true" data-theme="b" value="news" onclick="init_Sign_Canvas()" />
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-
-        </div>
-      </div>
-      @foreach($get_typeuser as $value)
-      <!-- <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
-        <div class="col-md-12 box-profile">
-          <img src="{{url('public/images/'.$value->image)}}" />
-          <div class="text-profile">
-            <h4>{{$value->name}}</h4>
-            <p>Birthday: {{$value->birthday}}</p>
-            <p>Certificate: {{$value->certificate}}</p>
-            <a href="javascript:void(0)" class="btn btn-info pull-right" data-toggle="modal" data-target="#detail-user-{{$value->id}}"><i class="fa fa-plus"></i></a>
+      <!-- Wrapper for slides -->
+      <div class="carousel-inner" role="listbox">
+        <div class="item active">
+          <img src="https://placehold.it/800x400?text=IMAGE" width="850px" alt="Image">
+          <div class="carousel-caption">
+            <h3>Sell $</h3>
+            <p>Money Money.</p>
           </div>
         </div>
-      </div> -->
-      @endforeach
-    </div>
-    @foreach($get_user as $value)
-    <!-- <div class="col-md-3">
-      <div class="col-md-12 box-profile">
-        <img src="{{url('public/images/'.$value->image)}}" />
-        <div class="text-profile">
-          <h4>{{$value->name}}</h4>
-          <p>Birthday: {{$value->birthday}}</p>
-          <p>Certificate: {{$value->certificate}}</p>
-          <p>sch: </p>
-          <p>Location: {{$value->location}}</p>
-          <a href="javascript:void(0)" class="btn btn-info pull-right" data-toggle="modal" data-target="#detail-user-{{$value->id}}"><i class="fa fa-plus"></i></a>
+
+        <div class="item">
+          <img src="https://placehold.it/800x400?text=Another Image Maybe" alt="Image">
+          <div class="carousel-caption">
+            <h3>More Sell $</h3>
+            <p>Lorem ipsum...</p>
+          </div>
         </div>
       </div>
-    </div> -->
-    <!-- Detail user -->
-    <div id="detail-user-{{$value->id}}" class="modal fade" role="dialog">
-    	<div class="modal-dialog">
 
-    		<!-- Modal content-->
-    		<div class="modal-content">
-    			<div class="modal-header">
-    				<button type="button" class="close" data-dismiss="modal">&times;</button>
-    				<h4 class="modal-title">Detail</h4>
-    			</div>
-    			<div class="modal-body">
-            <div id="detail-1">
-              <div class="col-md-8 col-sm-8">
-                <label>Fullname:</label>
-                <p>{{$value->name}}</p>
-      					<label>Birthday:</label>
-      					<p>{{$value->birthday}}</p>
-      					<label>Certificate:</label>
-      					<p>{{$value->certificate}}</p>
-      					<label>Phone:</label>
-      					<p>{{$value->phone}}</p>
-      					<label>Email:</label>
-      					<p>{{$value->email}}</p>
-              </div>
-              <div class="col-md-4 col-sm-4 detail-image">
-                <img src="{{url('public/images/'.$value->image)}}" />
-              </div>
-            </div>
-    			</div>
-    			<div class="modal-footer">
-    				<!-- <button type="button" class="btn btn-default" onclick="created_user();">Ok</button> -->
-    				<button type="button" class="btn btn-default" data-dismiss="modal" onclick="close_all();">Close</button>
-    			</div>
-    		</div>
-    	</div>
+      <!-- Left and right controls -->
+      <a class="left carousel-control" href="#myCarousel" role="button" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+      </a>
+      <a class="right carousel-control" href="#myCarousel" role="button" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+      </a>
     </div>
-    <!-- End detail user -->
-    @endforeach
   </div>
+  <div class="col-sm-4">
+    <div class="well">
+      <img src="https://placehold.it/150x80?text=IMAGE"/>
+      <p>Some text..</p>
+    </div>
+    <div class="well">
+      <img src="https://placehold.it/150x80?text=IMAGE"/>
+      <p>Upcoming Events..</p>
+    </div>
+    <div class="well">
+      <img src="https://placehold.it/150x80?text=IMAGE"/>
+      <p>Visit Our Blog</p>
+    </div>
+  </div>
+</div>
+<hr>
+</div>
+
+<div class="container-fluid text-center">
+  <h3>What We Do</h3>
+  <br>
+  <div class="row">
+    <div class="col-sm-3">
+      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+      <p>Current Project</p>
+    </div>
+    <div class="col-sm-3">
+      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+      <p>Project 2</p>
+    </div>
+    <div class="col-sm-3">
+      <div class="well">
+       <p>Some text..</p>
+      </div>
+      <div class="well">
+       <p>Some text..</p>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="well">
+       <p>Some text..</p>
+      </div>
+      <div class="well">
+       <p>Some text..</p>
+      </div>
+    </div>
+  </div>
+  <hr>
+</div>
+
+<div class="container-fluid text-center">
+  <h3>Our Partners</h3>
+  <br>
+  <div class="row">
+    <div class="col-sm-2">
+      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+      <p>Partner 1</p>
+    </div>
+    <div class="col-sm-2">
+      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+      <p>Partner 2</p>
+    </div>
+    <div class="col-sm-2">
+      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+      <p>Partner 3</p>
+    </div>
+    <div class="col-sm-2">
+      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+      <p>Partner 4</p>
+    </div>
+    <div class="col-sm-2">
+      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+      <p>Partner 5</p>
+    </div>
+    <div class="col-sm-2">
+      <img src="https://placehold.it/150x80?text=IMAGE" class="img-responsive" style="width:100%" alt="Image">
+      <p>Partner 6</p>
+    </div>
+  </div>
+</div><br>
   <!-- Created user -->
   <div id="created-user" class="modal fade" role="dialog">
   	<div class="modal-dialog">

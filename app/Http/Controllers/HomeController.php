@@ -19,7 +19,7 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function __construct(){
-        
+
     }
     public function index()
     {
@@ -34,8 +34,9 @@ class HomeController extends Controller
         $name_user = session::get('admin_name');
         $id_user = session::get('admin_id');
         $type_user = session::get('admin_type');
+        $image = session::get('admin_img');
         if($id_user){
-        return view('home.index',['name_user'=>$name_user,'id_user'=>$id_user,'g_group'=>$g_group,'g_room'=>$g_room,'type_user'=>$type_user]);
+        return view('home.index',['image'=>$image,'name_user'=>$name_user,'id_user'=>$id_user,'g_group'=>$g_group,'g_room'=>$g_room,'type_user'=>$type_user]);
         }else{
             return redirect()->action('UsersController@viewlogin');
         }
