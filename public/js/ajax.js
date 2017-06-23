@@ -92,7 +92,7 @@ function update_user(id){
 function close_user(){
 	$('#created-user').modal('hide');
 	$('#success').modal('hide');
-	// window.location.href = '/laravel/room/public/index';
+	// window.location.href = '/laravel/room/index';
 	window.location.reload();
 }
 function close_all(){
@@ -492,4 +492,82 @@ function created_user_index(){
 			}
 		});
 	}
+}
+function created_location(){
+	var title = $('#title_l').val();
+	var check = true;
+	if(title == ""){
+		$('.lblErrlocationtitle').show();
+		check = false;
+	}else{
+		$('.lblErrlocationtitle').hide();
+	}
+	if(check){
+		$.ajax({
+			type: 'post',
+			url: 'location/created_location',
+			data: {
+				title: title
+			},
+			dataType: 'json',
+			success: function(data){
+				if(data.status == 'success'){
+					$('#created_location').modal('hide');
+					$('#success').modal('show');
+					$('#success').find('.modal-body h3').text(data.message);
+				}else {
+					$('#error').modal('show');
+					$('#error').find('.modal-body h3').text(data.message);
+				}
+			}
+		});
+	}
+}
+function update_location(id){
+	var title_l = $('#update_location-'+id).val();
+	var check = true;
+	if(title_l == ""){
+		$('lblErrlocationtitle').show();
+		check = false;
+	}
+	else {
+		$('lblErrlocationtitle').hide();
+	}
+	if(check){
+		$.ajax({
+			type: 'post',
+			url: 'location/update_location',
+			data: {
+				id: id, title: title_l
+			},
+			dataType: 'json',
+			success: function(data){
+				if(data.status == 'success'){
+					$('#update_location-'+id).modal('hide');
+					$('#success').modal('show');
+					$('#success').find('.modal-body h3').text(data.message);
+				}
+				else {
+					$('#error').modal('show');
+					$('#error').find('.modal-body h3').text(data.message);
+				}
+			}
+		});
+	}
+}
+function delete_location(id){
+	$.ajax({
+		url: 'location/delete_location',
+		type: 'post',
+		dataType: 'json',
+		data:{id: id},
+		success: function(data){
+			if(data.status = 'success'){
+				$('#success').modal('show');
+				$('#success').find('.modal-body h3').text(data.message);
+				$('#delete_location_'+id).modal('hide');
+				$('#location-'+id).remove();
+			}
+		}
+	});
 }

@@ -14,6 +14,8 @@
     <link href="{{url('public/css/fullcalendar.print.min.css')}}" rel='stylesheet' media='print' />
     <link rel="stylesheet" href="{{url('public/build/jquery.datetimepicker.min.css')}}">
     <link rel="stylesheet" href="{{asset('public/css/pick-a-color-1.2.3.min.css')}}">
+    <link rel="stylesheet" href="{{asset('public/css/select2.css')}}" />
+    <link rel="stylesheet" href="{{asset('public/css/select2.min.css')}}" />
     <script src="{{url('public/js/jquery.min.js')}}"></script>
     <!-- <script src="https://code.jquery.com/mobile/1.3.2/jquery.mobile-1.3.2.min.js"></script> -->
     <!-- <script src="{{url('public/js/jquery.mobile.min.js')}}"></script> -->
@@ -21,6 +23,10 @@
     <script src="{{url('public/lib/moment.min.js')}}"></script>
     <script src="{{url('public/js/fullcalendar.min.js')}}"></script>
     <script src="{{url('public/lib/fullcalendar.js')}}"></script>
+    <script src="{{url('public/js/select2/select2.full.js')}}"></script>
+    <script src="{{url('public/js/select2/select2.full.min.js')}}"></script>
+    <script src="{{url('public/js/select2/select2.js')}}"></script>
+    <script src="{{url('public/js/select2/select2.min.js')}}"></script>
 
     <script type="text/javascript">
         $(document).ready(function() {
@@ -49,12 +55,12 @@
                     @if($type_user == 1)
                     <div id="status-header">
                       <img src="{{url('public/images/'.$image)}}"/>
-                      <label class="control-label" style="color: #fff;">{{$name_user or ""}}</label>
+                      <a href="{{url('/index/profile/'.Crypt::encrypt($id_user))}}"><label class="control-label" style="color: #fff;">{{$name_user}}</label></a>
                     </div>
                     @elseif($type_user == 2)
                     <div id="status-header">
                       <img src="{{url('public/images/'.$image)}}"/>
-                      <label class="control-label" style="color: #fff;">{{$name_user or ""}}</label>
+                      <a href="{{url('/index/profile/'.Crypt::encrypt($id_user))}}"><label class="control-label" style="color: #fff;">{{$name_user}}</label></a>
                     </div>
                     @else
 
@@ -64,19 +70,20 @@
                       <span>
                         <ul class="sub-menu">
                           @if($type_user == 1)
-                              <li><a href="{{url('/users')}}"><i class="fa fa-user"></i>User Manage</a></li>
-                              <li><a href="{{url('/groups')}}"><i class="fa fa-users"></i>Group & Room Manage</a></li>
-                              <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i>Calendar</a></li>
+                              <li><a href="{{url('/users')}}"><i class="fa fa-user"></i> User Manage</a></li>
+                              <li><a href="{{url('/groups')}}"><i class="fa fa-users"></i> Group & Room Manage</a></li>
+                              <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i> Calendar</a></li>
+                              <li><a href="{{url('/location')}}"><i class="fa fa-location-arrow"></i> location</a></li>
                               <div class="dropdown-divider"></div>
                               <!-- <li><a href="#" data-toggle="modal" data-target="#changePassword"><i class="fa fa-lock"></i> Change password</a></li> -->
-                              <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i>Logout</a></li>
+                              <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>
                           @elseif($type_user == 2)
-                              <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i>Calendar</a></li>
-                              <li><a href="{{url('/index')}}"><i class="fa fa-home"></i>Index</a></li>
-                              <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i>Logout</a></li>
+                              <li><a href="{{url('/home')}}"><i class="fa fa-calendar"></i> Calendar</a></li>
+                              <li><a href="{{url('/index')}}"><i class="fa fa-home"></i> Index</a></li>
+                              <li><a href="{{url('/logout')}}"><i class="fa fa-sign-out"></i> Logout</a></li>
                           @else
-                              <li><a href="{{url('/login')}}"><i class="fa fa-sign-out"></i>Login</a></li>
-                              <li><a href="{{url('/index/register')}}"><i class="fa fa-sign-out"></i>Register</a></li>
+                              <li><a href="{{url('/login')}}"><i class="fa fa-sign-out"></i> Login</a></li>
+                              <li><a href="{{url('/index/register')}}"><i class="fa fa-sign-out"></i> Register</a></li>
                           @endif
                         </ul>
                       </span>
@@ -92,19 +99,77 @@
         <div id="back-to-top">
           <i class="fa fa-chevron-circle-up"></i>
         </div>
-        <div id="network" class="col-md-2 col-sm-2">
-          <div id="search">
-            <input type="search" required="required" id="abc" placeholder="1321231232" />
-            <button type="button" class="btn btn-info fa fa-search"></button>
+        <div class="col-md-2 col-sm-2" style="height:100%;padding:0 12px 0 0;">
+          @if($type_user == 1)
+          <div id="network">
+            <div id="search">
+              <div class="col-md-12">
+                <input type="search" required="required" id="abc" placeholder="1321231232" />
+              </div>
+              <div class="col-md-12">
+                <label>Location</label>
+                <select id="select2-test-2">
+                  @foreach($g_location as $value)
+                    <option value="{{$value->id}}">{{$value->title_l}}</option>
+                  @endforeach
+                </select>
+              </div>
+              <div class="col-md-12">
+                <label>Groups</label>
+                <select id="select-3">
+                  @foreach($g_groups as $value)
+                    <option value="{{$value->id}}">{{$value->g_name}}</option>
+                  @endforeach
+                </select>
+              </div>
+              <button type="button" class="btn btn-info fa fa-search"></button>
+            </div>
+            <ul>
+              <a href="#"><li><span class="fa fa-newspaper-o"></span> news</li></a>
+              <a href="#"><li><i class="fa fa-user"></i> profile</li></a>
+              <a href="#"><li><i class="fa fa-map-marker"></i> location</li></a>
+              <a href="#" data-toggle="modal" data-target="#divPopUpSignContract"><li><i class="fa fa-pencil"></i></li></a>
+            </ul>
           </div>
-          <ul>
-            <a href="#"><li><span class="fa fa-newspaper-o"></span> news</li></a>
-            <a href="#"><li><i class="fa fa-user"></i> profile</li></a>
-            <a href="#"><li><i class="fa fa-map-marker"></i> location</li></a>
-            <a href="#" data-toggle="modal" data-target="#divPopUpSignContract"><li><i class="fa fa-pencil"></i></li></a>
-          </ul>
+          @elseif($type_user == 2)
+          <div id="network">
+            <div id="search">
+              <input type="search" required="required" id="abc" placeholder="1321231232" />
+              <select id="select2-test-2" multiple="multiple">
+                @foreach($g_location as $value)
+                  <option value="{{$value->id}}">{{$value->title_l}}</option>
+                @endforeach
+              </select>
+              <button type="button" class="btn btn-info fa fa-search"></button>
+            </div>
+            <ul>
+              <a href="#"><li><span class="fa fa-newspaper-o"></span> news</li></a>
+              <a href="#"><li><i class="fa fa-user"></i> profile</li></a>
+              <a href="#"><li><i class="fa fa-map-marker"></i> location</li></a>
+              <a href="#" data-toggle="modal" data-target="#divPopUpSignContract"><li><i class="fa fa-pencil"></i></li></a>
+            </ul>
+          </div>
+          @else
+          <div id="network">
+            <div id="search">
+              <input type="search" required="required" id="abc" placeholder="1321231232" />
+              <select id="select2-test-2" multiple="multiple">
+                @foreach($g_location as $value)
+                  <option value="{{$value->id}}">{{$value->title_l}}</option>
+                @endforeach
+              </select>
+              <button type="button" class="btn btn-info fa fa-search"></button>
+            </div>
+            <!-- <ul>
+              <a href="#"><li><span class="fa fa-newspaper-o"></span> news</li></a>
+              <a href="#"><li><i class="fa fa-user"></i> profile</li></a>
+              <a href="#"><li><i class="fa fa-map-marker"></i> location</li></a>
+              <a href="#" data-toggle="modal" data-target="#divPopUpSignContract"><li><i class="fa fa-pencil"></i></li></a>
+            </ul> -->
+          </div>
+          @endif
         </div>
-        <div class="col-md-10 col-sm-10" style="margin:10px 0 0;">
+        <div class="col-md-10 col-sm-10" style="margin:10px 0 100px;">
           @yield('content')
         </div>
         <div id="footer" class="nav nav-pills nav-stacked col-md-12">
@@ -217,6 +282,7 @@
         <img src="{{url('public/images/icon-loading.gif')}}" width="100">
     </div>
     <!-- Script -->
+
     <script src="{{url('public//js/ajax.js')}}"></script>
     <script src="{{url('public//js/common.js')}}"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
@@ -228,8 +294,12 @@
     <meta name="csrf-token" content="{{ csrf_token() }}" />
     <script type="text/javascript">
     $(document).ready(function(){
-        $('.nav').affix({offset: {top: 220} });
+        $('.nav').affix({offset: {top: 300} });
     });
+    $(document).ready(function(){
+        $('#network').affix({offset: {top: 50} });
+    });
+
         $(document).ready(function () {
             $(".pick-a-color").pickAColor({
               showSpectrum            : true,
@@ -282,7 +352,24 @@
         });
       });
 
+      $(document).ready(function() {
+        $("form").bind("keypress", function(e) {
+            if (e.keyCode == 13) {
+                return false;
+            }
+        });
+    });
 
+      $(document).ready(function(){
+        $('#select2-test').select2();
+      });
+
+      $(document).ready(function(){
+        $('#select2-test-2').select2();
+      });
+      $(document).ready(function(){
+        $('#select-3').select2();
+      });
     </script>
 </body>
 </html>

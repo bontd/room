@@ -46,5 +46,13 @@ Route::group(['middleware' => 'login'], function(){
 		Route::get('/detail','IndexController@detail');
 		Route::get('/register','IndexController@register');
 		Route::post('/created-user','IndexController@created_user');
+		Route::get('/profile/{id}','IndexController@profile');
+		Route::get('/slideshow','IndexController@slideshow');
+	});
+	Route::group(['prefix'=>'/location'],function(){
+		Route::get('/','LocationController@index');
+		Route::post('/created_location','LocationController@created');
+		Route::post('/update_location','LocationController@update');
+		Route::post('/delete_location','LocationController@delete');
 	});
 });

@@ -49,7 +49,7 @@ class RoomsController extends Controller
         else{
             $o_response->status = 'error';
             $o_response->message = 'Room already exists';
-        }       
+        }
         echo json_encode($o_response);
     }
 

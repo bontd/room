@@ -31,6 +31,7 @@ class HomeController extends Controller
         $g_group = $groups->getgroup();
         $g_room = $rooms->getRoom();
         $event = $home->getevent();
+        $g_location = $location->getlocation();
         $name_user = session::get('admin_name');
         $id_user = session::get('admin_id');
         $type_user = session::get('admin_type');

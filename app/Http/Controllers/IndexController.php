@@ -10,30 +10,62 @@ use App\Models\Groups;
 use App\Models\Users;
 use App\Models\Rooms;
 use App\Models\Homes;
+use App\Models\Slideshow;
+use App\Models\Location;
 use Input;
 use Session;
+use Illuminate\Support\Facades\View;
+use Illuminate\Contracts\View\Factory;
 
 class IndexController extends Controller
 {
     //
+    public function boot(){
+        $name_user = session::get('admin_name');
+        $id_user = session::get('admin_id');
+        $type_user = session::get('admin_type');
+        $image = session::get('admin_img');
+        View()->share(
+          'name_user',[$name_user],
+          'type_user',[$type_user]
+        );
+    }
+
     public function index(){
       $users = new Users();
       $groups = new Groups();
       $rooms = new Rooms();
       $home = new Homes();
+      $slideshow = new Slideshow();
+      $location = new Location();
       $get_user = $users->getusers();
       $get_typeuser = $users->getusers_group();
       $g_group = $groups->getgroup();
       $g_room = $rooms->getRoom();
       $event = $home->getevent();
       $g_data = $groups->getgroup();
+      $slide = $slideshow->getImage();
+      $g_location = $location->getlocation();
       $name_user = session::get('admin_name');
       $id_user = session::get('admin_id');
       $type_user = session::get('admin_type');
       $image = session::get('admin_img');
       // echo '<pre>';
-      // print_r($get_typeuser);die;
-      return view('index.index',['image'=>$image,'name_user'=>$name_user,'id_user'=>$id_user,'g_group'=>$g_group,'g_room'=>$g_room,'type_user'=>$type_user,'get_user'=>$get_user,'g_data'=>$g_data,'get_typeuser'=>$get_typeuser]);
+      // print_r($slide);die;
+      return view('index.index',[
+        'g_group'=>$g_group,
+        'g_room'=>$g_room,
+        'get_user'=>$get_user,
+        'g_data'=>$g_data,
+        'get_typeuser'=>$get_typeuser,
+        'slide' => $slide,
+        'event' => $event,
+        'name_user'=>$name_user,
+        'id_user'=>$id_user,
+        'type_user'=>$type_user,
+        'g_location' => $g_location,
+        'image' => $image
+      ]);
 
     }
 
@@ -101,5 +133,51 @@ class IndexController extends Controller
         // echo '<pre>';
         // print_r($fullname);die;
 		echo json_encode($o_response);
-    }
+  }
+  public function profile($id){
+    $id = Crypt::decrypt($id);
+    $users = new Users();
+    $groups = new Groups();
+    $rooms = new Rooms();
+    $home = new Homes();
+    $get_user = $users->getusers();
+    $get_typeuser = $users->getusers_group();
+    $g_group = $groups->getgroup();
+    $g_room = $rooms->getRoom();
+    $event = $home->getevent();
+    $g_data = $groups->getgroup();
+    $name_user = session::get('admin_name');
+    $id_user = session::get('admin_id');
+    $type_user = session::get('admin_type');
+    $image = session::get('admin_img');
+    $db = DB::table('users')
+          ->select('*')
+          ->where('id',$id)
+          ->first();
+    // echo '<pre>';
+    // print_r($db);die;
+    return view('index.profile',[
+      'image'=>$image,
+      'name_user'=>$name_user,
+      'id_user'=>$id_user,
+      'g_group'=>$g_group,
+      'g_room'=>$g_room,
+      'type_user'=>$type_user,
+      'get_user'=>$get_user,
+      'g_data'=>$g_data,
+      'get_typeuser'=>$get_typeuser,
+      'profile_user' =>$db
+    ]);
+  }
+
+  public function slideshow() {
+    $name_user = session::get('admin_name');
+    $id_user = session::get('admin_id');
+    $type_user = session::get('admin_type');
+    $image = session::get('admin_img');
+    return view('index.slideshow',
+    [
+
+    ]);
+  }
 }
