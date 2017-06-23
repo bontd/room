@@ -53,7 +53,7 @@ class IndexController extends Controller
       // echo '<pre>';
       // print_r($slide);die;
       return view('index.index',[
-        'g_group'=>$g_group,
+        'g_groups'=>$g_group,
         'g_room'=>$g_room,
         'get_user'=>$get_user,
         'g_data'=>$g_data,

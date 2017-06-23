@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Session;
 use App\Models\location;
+use App\Models\Groups;
 use Input;
 use DB;
 
@@ -18,6 +19,8 @@ class LocationController extends Controller
       $image = session::get('admin_img');
       $location = new Location();
       $getlocation = $location->getlocation();
+      $group = new Groups();
+      $g_group = $group->getgroup();
       // echo '<pre>';
       // print_r($getlocation);die;
       return view('location.index',[
@@ -25,7 +28,9 @@ class LocationController extends Controller
         'name_user'=>$name_user,
         'id_user'=>$id_user,
         'type_user'=>$type_user,
-        'location' => $getlocation
+        'location' => $getlocation,
+        'g_location' => $getlocation,
+        'g_groups'=>$g_group
       ]);
     }
 

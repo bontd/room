@@ -16,8 +16,8 @@
         <div class="item {{$value->status}}">
           <img src="{{url('public/images/'.$value->img)}}" width="850px" height="400px" alt="Image">
           <div class="carousel-caption">
-            <h3>{{$value->title}}</h3>
-            <p>{{$value->descriptions}}</p>
+            <h3>{{$value->title_sl}}</h3>
+            <p>{{$value->discription}}</p>
           </div>
         </div>
         @endforeach
@@ -63,12 +63,8 @@
     </div>
     <div class="col-sm-3">
       <div class="well" style="height:72px">
-       <p>
-         <select id="select2-test">
-           <option value="">1</option>
-           <option value="">2</option>
-         </select>
-      </p>
+        <p>
+        </p>
       </div>
       <div class="well" style="height:72px">
        <p></p>

@@ -102,6 +102,39 @@
         <div class="col-md-2 col-sm-2" style="height:100%;padding:0 12px 0 0;">
           @if($type_user == 1)
           <div id="network">
+            <ul>
+              <a href="#"><li><span class="fa fa-newspaper-o"></span> news</li></a>
+              <a href="#"><li><i class="fa fa-user"></i> profile</li></a>
+              <a href="#"><li><i class="fa fa-map-marker"></i> location</li></a>
+              <a href="#" data-toggle="modal" data-target="#divPopUpSignContract"><li><i class="fa fa-pencil"></i></li></a>
+            </ul>
+          </div>
+          @elseif($type_user == 2)
+          <div id="network">
+            <ul>
+              <a href="#"><li><span class="fa fa-newspaper-o"></span> news</li></a>
+              <a href="#"><li><i class="fa fa-user"></i> profile</li></a>
+              <a href="#"><li><i class="fa fa-map-marker"></i> location</li></a>
+              <a href="#" data-toggle="modal" data-target="#divPopUpSignContract"><li><i class="fa fa-pencil"></i></li></a>
+            </ul>
+          </div>
+          @else
+          <div id="network">
+            <!-- <ul>
+              <a href="#"><li><span class="fa fa-newspaper-o"></span> news</li></a>
+              <a href="#"><li><i class="fa fa-user"></i> profile</li></a>
+              <a href="#"><li><i class="fa fa-map-marker"></i> location</li></a>
+              <a href="#" data-toggle="modal" data-target="#divPopUpSignContract"><li><i class="fa fa-pencil"></i></li></a>
+            </ul> -->
+          </div>
+          @endif
+        </div>
+        <div class="col-md-8 col-sm-8" style="margin:10px 0 100px;">
+          @yield('content')
+        </div>
+        <div class="col-md-2 col-sm-2" style="height:100%;">
+          @if($type_user == 1)
+          <div id="network-1">
             <div id="search">
               <div class="col-md-12">
                 <input type="search" required="required" id="abc" placeholder="1321231232" />
@@ -124,15 +157,9 @@
               </div>
               <button type="button" class="btn btn-info fa fa-search"></button>
             </div>
-            <ul>
-              <a href="#"><li><span class="fa fa-newspaper-o"></span> news</li></a>
-              <a href="#"><li><i class="fa fa-user"></i> profile</li></a>
-              <a href="#"><li><i class="fa fa-map-marker"></i> location</li></a>
-              <a href="#" data-toggle="modal" data-target="#divPopUpSignContract"><li><i class="fa fa-pencil"></i></li></a>
-            </ul>
           </div>
           @elseif($type_user == 2)
-          <div id="network">
+          <div id="network-1">
             <div id="search">
               <input type="search" required="required" id="abc" placeholder="1321231232" />
               <select id="select2-test-2" multiple="multiple">
@@ -142,15 +169,9 @@
               </select>
               <button type="button" class="btn btn-info fa fa-search"></button>
             </div>
-            <ul>
-              <a href="#"><li><span class="fa fa-newspaper-o"></span> news</li></a>
-              <a href="#"><li><i class="fa fa-user"></i> profile</li></a>
-              <a href="#"><li><i class="fa fa-map-marker"></i> location</li></a>
-              <a href="#" data-toggle="modal" data-target="#divPopUpSignContract"><li><i class="fa fa-pencil"></i></li></a>
-            </ul>
           </div>
           @else
-          <div id="network">
+          <div id="network-1">
             <div id="search">
               <input type="search" required="required" id="abc" placeholder="1321231232" />
               <select id="select2-test-2" multiple="multiple">
@@ -160,17 +181,8 @@
               </select>
               <button type="button" class="btn btn-info fa fa-search"></button>
             </div>
-            <!-- <ul>
-              <a href="#"><li><span class="fa fa-newspaper-o"></span> news</li></a>
-              <a href="#"><li><i class="fa fa-user"></i> profile</li></a>
-              <a href="#"><li><i class="fa fa-map-marker"></i> location</li></a>
-              <a href="#" data-toggle="modal" data-target="#divPopUpSignContract"><li><i class="fa fa-pencil"></i></li></a>
-            </ul> -->
           </div>
           @endif
-        </div>
-        <div class="col-md-10 col-sm-10" style="margin:10px 0 100px;">
-          @yield('content')
         </div>
         <div id="footer" class="nav nav-pills nav-stacked col-md-12">
           <div class="col-md-6 footer-bar-left">
@@ -298,6 +310,12 @@
     });
     $(document).ready(function(){
         $('#network').affix({offset: {top: 50} });
+    });
+    $(document).ready(function(){
+        $('#network-1').affix({offset: {top: 50} });
+    });
+    $(document).ready(function(){
+        $('#header').affix({offset: {top: 50} });
     });
 
         $(document).ready(function () {
