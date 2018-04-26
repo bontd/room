@@ -11,7 +11,6 @@
 |
 */
 
-Route::get('/', 'IndexController@index');
 Route::get('/login','UsersController@viewlogin');
 Route::post('/login','UsersController@login');
 Route::get('/logout','UsersController@logout');
@@ -40,6 +39,7 @@ Route::group(['middleware' => 'login'], function(){
 		Route::post('/created','HomeController@created');
 		Route::post('/delete','HomeController@delete');
 		Route::post('/searchempty','HomeController@searchRoom');
+		Route::post('/update','HomeController@update');
 	});
 	Route::group(['prefix'=>'/index'],function(){
 		Route::get('/','IndexController@index');
@@ -55,4 +55,12 @@ Route::group(['middleware' => 'login'], function(){
 		Route::post('/update_location','LocationController@update');
 		Route::post('/delete_location','LocationController@delete');
 	});
+    Route::get('image-upload','ImageController@imageUpload');
+    Route::post('image-upload','ImageController@imageUploadPost');
 });
+
+Route::get('/', 'IndexController@index')->middleware('cors');
+Route::get('danhba/{danhba}','IndexController@show');
+Route::post('danhba','IndexController@store');
+Route::put('danhba/{danhba}','IndexController@update');
+Route::delete('danhba/{danhba}','IndexController@delete');

@@ -47,7 +47,7 @@
                     <p class="label label-danger lblErrTitle" style="display: none;">Title is required</p>
                 </div>
                 <label>Email:</label>
-                <input type="email" name="email" id="email" placeholder="Email..." required="required">
+                <input type="email" name="email" id="email" readonly value="{{$email}}" placeholder="Email..." required="required">
                 <div class="messager">
                     <p class="label label-danger lblErrEmail" style="display: none;"><i></i></p>
                 </div>
@@ -121,14 +121,15 @@
             <div class="modal-body">
                 <form>
                 <h4>Created By: <b></b></h4>
-                <h5></h5>
+                    <input type="hidden" value="{{$id_user}}" class="user_id">
+                <h5 style="display: none"></h5>
                 <label>Title:</label>
-                <input type="text" name="title" id="title" placeholder="Title...">
+                <input type="text" name="title" id="title_update" placeholder="Title...">
                 <div class="messager">
                     <p class="label label-danger lblErrTitle" style="display: none;">Title is required</p>
                 </div>
                 <label>Email:</label>
-                <input type="email" name="email" id="email" placeholder="Email...">
+                <input type="email" name="email" readonly id="email_update" placeholder="Email...">
                 <div class="messager">
                     <p class="label label-danger lblErrEmail" style="display: none;">Email is required</p>
                 </div>
@@ -143,7 +144,7 @@
                     </tr>
                     <tr>
                         <td>
-                            <select name="groups" id="groups-event">
+                            <select name="groups" id="groups-event_update">
                                 <option>-----</option>
                             @foreach($g_group as $group)
                                 <option value="{{$group->id}}">{{$group->g_name}}</option>
@@ -151,7 +152,7 @@
                             </select>
                         </td>
                         <td>
-                            <select name="room" id="room-event">
+                            <select name="room" id="room-event_update">
                                 @foreach($g_room as $room)
                                 <option value="{{$room->id}}">{{$room->r_name}}</option>
                                 @endforeach
@@ -168,16 +169,16 @@
                     </tr>
                     <tr>
                         <td>
-                            <input type="text" value="" id="datetimepicker-start-update" class="start" />
+                            <input type="text" value="" id="datetimepicker-start-update" class="start_update" />
                         </td>
                         <td>
-                            <input type="text" value="" id="datetimepicker-end-update" class="end" placeholder="yyyy/mm/dd h:m"/>
+                            <input type="text" value="" id="datetimepicker-end-update" class="end_update" placeholder="yyyy/mm/dd h:m"/>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
                             <label class="control-label" style="margin-top: 26px; float:left;">Choose color:</label>
-                            <input type="text" value="3a87ad" name="color" class="pick-a-color form-control">
+                            <input type="text" value="3a87ad" name="color" id="pick-color_update" class="pick-a-color form-control">
                         </td>
                     </tr>
                 </table>
@@ -205,11 +206,7 @@
                 <h4 class="modal-title">Search Empty Room</h4>
             </div>
             <div class="modal-body">
-                <h3 id="1"></h3>
-                <h3 id="2"></h3>
-                <h3 id="3"></h3>
-                <h3 id="4"></h3>
-                <h3 id="5"></h3>
+                <h3 id="list-search"></h3>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal" onclick="close_all();">Close</button>

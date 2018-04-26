@@ -28,17 +28,15 @@ $('#datetimepicker-end').datetimepicker({
 });
 $('#datetimepicker-end').datetimepicker({value:'yyyy,mm,dd',step:20});
 
-$('#datetimepicker-start-update').datetimepicker({
-    dayOfWeekStart : 1,
-    lang:'en',
-    startDate:  'yyyy/mm/dd'
-});
-$('#datetimepicker-start-update').datetimepicker({value:'yyyy/mm/dd',step:20});
+// $('#datetimepicker-start-update').datetimepicker({
+//     dayOfWeekStart : 1,
+//     lang:'en',
+// });
+// $('#datetimepicker-start-update').datetimepicker({value:'yyyy/mm/dd',step:20});
 
 $('#datetimepicker-end-update').datetimepicker({
     dayOfWeekStart : 1,
     lang:'en',
-    startDate:  'yyyy/mm/dd'
 });
 //$('#datetimepicker-end-update').datetimepicker({value:'yyyy,mm,dd',step:20});
 

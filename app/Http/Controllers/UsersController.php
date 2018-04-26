@@ -164,6 +164,7 @@ class UsersController extends Controller
                 session::put('login',TRUE);
                 session::put('admin_id',$b_check->id);
                 session::put('admin_name',$b_check->name);
+                session::put('admin_email',$b_check->email);
                 session::put('admin_img',$b_check->image);
                 session::put('admin_type',$b_check->remember_token);
                 //echo "abc";
@@ -179,6 +180,7 @@ class UsersController extends Controller
         session::forget('admin_name');
         session::forget('admin_type');
         session::forget('admin_img');
+        session::forget('admin_email');
         return redirect('index');
     }
 }

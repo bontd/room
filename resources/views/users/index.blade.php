@@ -88,6 +88,32 @@
 									<option value="{{$value->id}}">{{$value->g_name}}</option>
 								@endforeach
 								</select>
+								<div class="messager"></div>
+								<label>Birthday</label>
+								<input type="date" name="birthday" id="birthday-{{$user->id}}" value="{{$user->birthday}}">
+								<div class="messager">
+									<p class="label label-danger lblErrBirthday-{{$user->id}}" style="display: none;">Birthday is required</p>
+								</div>
+								<label>Phone</label>
+								<input type="number" name="phone" id="phone-{{$user->id}}" value="{{$user->phone}}">
+								<div class="messager">
+									<p class="lable label-danger" style="display: none;">Phone is required</p>
+								</div>
+								<label>Location</label>
+								<input type="text" name="location" id="location-{{$user->id}}" value="{{$user->location}}">
+								<div class="messager">
+									<p class="lable label-danger" style="display: none;">location is required</p>
+								</div>
+								<label>Certificate</label>
+								<input type="text" name="certificate" id="certificate-{{$user->id}}" value="{{$user->certificate}}">
+								<div class="messager">
+									<p class="lable label-danger" style="display: none;">Certificate is required</p>
+								</div>
+								<label>Avatar</label>
+								<input type="file" name="avatar" id="avatar-{{$user->id}}">
+								<div class="messager">
+									<p class="lable label-danger" style="display: none;">Avatar is required</p>
+								</div>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-default" onclick="update_user({{$user->id}});">Ok</button>

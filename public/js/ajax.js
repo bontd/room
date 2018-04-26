@@ -50,12 +50,15 @@ function created_user(){
 	}
 }
 function update_user(id){
-	var fullname   = $('#fullname-'+id).val();
+	var fullname    = $('#fullname-'+id).val();
 	var email       = $('#email-'+id).val();
-	var groups    = $('#groups-'+id).val();
-	// console.log(fullname);
+	var groups      = $('#groups-'+id).val();
+	var phone       = $('#phone-'+id).val();
+    var location    = $('#location-'+id).val();
+    var certificate = $('#certificate-'+id).val();
+    var avatar      = $('#avatar-'+id).val();
 	// console.log(email);
-	// console.log(groups);return;
+	console.log(phone);return;
 	var check = true;
 	if(fullname == ''){
 		$('.lblErrFullname-'+id).modal('show');
@@ -73,7 +76,7 @@ function update_user(id){
 		$.ajax({
 			type: 'post',
 			url: 'users/update',
-			data:  {id: id,fullname: fullname,email:email,groups:groups},
+			data:  {id: id,fullname: fullname,email:email,groups:groups,phone:phone,location:location,certificate:certificate,avatar:avatar},
 			dataType:"json",
 			success: function(data) {
 				if(data.status == 'ok'){
@@ -342,8 +345,35 @@ function created_event(){
 	}
 }
 function update_event(){
-	var id_event = $('#update_id').val();
-	alert('id event: '+id_user);
+	var user_id = $('.user_id').val();
+	var id = $('form h5').text();
+    var title = $('#title_update').val();
+    var email = $('#email_update').val();
+    var group_event = $('#groups-event_update').val();
+    var room = $('#room-event_update').val();
+    var start = $('.start_update').val();
+    var end = $('.end_update').val();
+    var color = $('#pick-color_update').val();
+    $.ajax({
+		url: 'home/update',
+		type: 'post',
+		dataType: 'json',
+		data: {
+			id:id,user_id:user_id,title: title,email:email,group_event:group_event,room:room,start:start,end:end,color:color
+		},
+		success: function (data) {
+			if(data.status == 'ok') {
+				$('#view-event').modal('hide');
+				$('#success').modal('show');
+                $('#success').find('.modal-body h3').text(data.message);
+			}else {
+                $('#view-event').modal('hide');
+                $('#error').modal('show');
+                $('#error').find('.modal-body h3').text(data.message);
+			}
+
+        }
+	})
 }
 function popup_delete_event(){
 	$('#delete_event').modal('show');
@@ -378,28 +408,24 @@ function search_empty(){
 	var from = $('#datetimepicker-from').val();
 	var to = $('#datetimepicker-to').val();
 	if(from == ''){
-		alert('chua chon thoi gian');
+        $('#datetimepicker-from').focus();
 	}
 	else if(to == ''){
-		alert('chua chon thoi gian');
+        $('#datetimepicker-to').focus();
 	}else{
 		$('#search-event').modal('show');
-	$.ajax({
-		url: 'home/searchempty',
-		type: 'post',
-		dataType: 'json',
-		data: {from: from,to: to},
-		success: function(data){
-			if(data.status == 'ok'){
-				var room = data.message;
-				$('#search-event').find('.modal-body #1').text(room[0]);
-				$('#search-event').find('.modal-body #2').text(room[1]);
-				$('#search-event').find('.modal-body #3').text(room[2]);
-				$('#search-event').find('.modal-body #4').text(room[3]);
-				$('#search-event').find('.modal-body #5').text(room[4]);
+		$.ajax({
+			url: 'home/searchempty',
+			type: 'post',
+			dataType: 'json',
+			data: {from: from,to: to},
+			success: function(data){
+				if(data.status == 'ok'){
+					var room = data.message;
+                    $( "#list-search" ).text( room.join( " - " ) );
+				}
 			}
-		}
-	});
+		});
 	}
 }
 

@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use Crypt;
 use DB;
 use App\Http\Requests;
-use App\Models\Groups;
+use App\Models\Danhba;
 use App\Models\Users;
 use App\Models\Rooms;
 use App\Models\Homes;
@@ -20,164 +20,28 @@ use Illuminate\Contracts\View\Factory;
 class IndexController extends Controller
 {
     //
-    public function boot(){
-        $name_user = session::get('admin_name');
-        $id_user = session::get('admin_id');
-        $type_user = session::get('admin_type');
-        $image = session::get('admin_img');
-        View()->share(
-          'name_user',[$name_user],
-          'type_user',[$type_user]
-        );
+    public function index() {
+        return Danhba::all();
     }
 
-    public function index(){
-      $users = new Users();
-      $groups = new Groups();
-      $rooms = new Rooms();
-      $home = new Homes();
-      $slideshow = new Slideshow();
-      $location = new Location();
-      $get_user = $users->getusers();
-      $get_typeuser = $users->getusers_group();
-      $g_group = $groups->getgroup();
-      $g_room = $rooms->getRoom();
-      $event = $home->getevent();
-      $g_data = $groups->getgroup();
-      $slide = $slideshow->getImage();
-      $g_location = $location->getlocation();
-      $name_user = session::get('admin_name');
-      $id_user = session::get('admin_id');
-      $type_user = session::get('admin_type');
-      $image = session::get('admin_img');
-      // echo '<pre>';
-      // print_r($slide);die;
-      return view('index.index',[
-        'g_groups'=>$g_group,
-        'g_room'=>$g_room,
-        'get_user'=>$get_user,
-        'g_data'=>$g_data,
-        'get_typeuser'=>$get_typeuser,
-        'slide' => $slide,
-        'event' => $event,
-        'name_user'=>$name_user,
-        'id_user'=>$id_user,
-        'type_user'=>$type_user,
-        'g_location' => $g_location,
-        'image' => $image
-      ]);
-
+    public function show($id) {
+        return Danhba::find($id);
     }
 
-    public function detail(){
-      $name_user = session::get('admin_name');
-      $id_user = session::get('admin_id');
-      $type_user = session::get('admin_type');
-      if($id_user){
-      return view('index.detail',['name_user'=>$name_user,'id_user'=>$id_user,'type_user'=>$type_user]);
-      }else{
-          return redirect()->action('UsersController@viewlogin');
-      }
+    public function store(Request $request) {
+        $danhba = Danhba::create($request->all());
+        return response()->json($danhba, 201);
     }
 
-    public function register(){
-      $groups = new Groups();
-      $g_data = $groups->getgroup();
-      $name_user = session::get('admin_name');
-      $id_user = session::get('admin_id');
-      $type_user = session::get('admin_type');
-
-
-      return view('index.register',['type_user'=>$type_user,'g_data'=>$g_data]);
+    public function update(Request $request, $id) {
+        $danhba = Danhba::findOrFail($id);
+        $danhba->update($request->all());
+        return $danhba;
     }
 
-    public function created_user(Request $request){
-    	$o_response = new \stdclass();
-    	$sz_email = Input::get('email');
-    	$fullname   = isset($_POST['fullname']) ? trim($_POST['fullname']) : '';
-      $password   = isset($_POST['password']) ? trim($_POST['password']) : '';
-      $groups   = isset($_POST['groups']) ? trim($_POST['groups']) : '';
-      $birthday   = isset($_POST['birthday']) ? trim($_POST['birthday']) : '';
-      $phone   = isset($_POST['phone']) ? trim($_POST['phone']) : '';
-      $location   = isset($_POST['location']) ? trim($_POST['location']) : '';
-      $certificate   = isset($_POST['certificate']) ? trim($_POST['certificate']) : '';
-
-    	$users = new Users();
-    	$get_user = $users->whereUser($sz_email);
-
-
-    	if(empty($get_user)){
-      		$created_user = DB::table('users')->insert([
-  	        	'name' => $fullname,
-  	        	'email' => $sz_email,
-  	        	'password' => md5($password),
-              'group_id' => $groups,
-              'birthday' =>$birthday,
-              'phone' =>$phone,
-              'location' =>$location,
-              'certificate' =>$certificate,
-  	        	'remember_token' => 2
-  	    	]);
-	    	if($created_user){
-	    		$o_response->status = 'success';
-	    		$o_response->message = 'Add new user success';
-	    	}
-	    	else{
-	    		$o_response->status = 'error';
-	    	}
-        }
-        else{
-        	$o_response->status = 'error';
-        	$o_response->message = 'Please choose another email';
-        }
-        // echo '<pre>';
-        // print_r($fullname);die;
-		echo json_encode($o_response);
-  }
-  public function profile($id){
-    $id = Crypt::decrypt($id);
-    $users = new Users();
-    $groups = new Groups();
-    $rooms = new Rooms();
-    $home = new Homes();
-    $get_user = $users->getusers();
-    $get_typeuser = $users->getusers_group();
-    $g_group = $groups->getgroup();
-    $g_room = $rooms->getRoom();
-    $event = $home->getevent();
-    $g_data = $groups->getgroup();
-    $name_user = session::get('admin_name');
-    $id_user = session::get('admin_id');
-    $type_user = session::get('admin_type');
-    $image = session::get('admin_img');
-    $db = DB::table('users')
-          ->select('*')
-          ->where('id',$id)
-          ->first();
-    // echo '<pre>';
-    // print_r($db);die;
-    return view('index.profile',[
-      'image'=>$image,
-      'name_user'=>$name_user,
-      'id_user'=>$id_user,
-      'g_group'=>$g_group,
-      'g_room'=>$g_room,
-      'type_user'=>$type_user,
-      'get_user'=>$get_user,
-      'g_data'=>$g_data,
-      'get_typeuser'=>$get_typeuser,
-      'profile_user' =>$db
-    ]);
-  }
-
-  public function slideshow() {
-    $name_user = session::get('admin_name');
-    $id_user = session::get('admin_id');
-    $type_user = session::get('admin_type');
-    $image = session::get('admin_img');
-    return view('index.slideshow',
-    [
-
-    ]);
-  }
+    public function delete($id) {
+        $danhba = Danhba::findOrFail($id);
+        $danhba->delete();
+        return 204;
+    }
 }

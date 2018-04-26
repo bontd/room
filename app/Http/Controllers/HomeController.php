@@ -31,13 +31,13 @@ class HomeController extends Controller
         $g_group = $groups->getgroup();
         $g_room = $rooms->getRoom();
         $event = $home->getevent();
-        $g_location = $location->getlocation();
         $name_user = session::get('admin_name');
         $id_user = session::get('admin_id');
+        $email = session::get('admin_email');
         $type_user = session::get('admin_type');
         $image = session::get('admin_img');
         if($id_user){
-        return view('home.index',['image'=>$image,'name_user'=>$name_user,'id_user'=>$id_user,'g_group'=>$g_group,'g_room'=>$g_room,'type_user'=>$type_user]);
+        return view('home.index',['image'=>$image,'name_user'=>$name_user,'email'=>$email,'id_user'=>$id_user,'g_group'=>$g_group,'g_room'=>$g_room,'type_user'=>$type_user]);
         }else{
             return redirect()->action('UsersController@viewlogin');
         }
@@ -95,6 +95,57 @@ class HomeController extends Controller
                 if($created_user){
                     $o_response->status = 'ok';
                     $o_response->message = 'Add new Event success';
+                }
+                else{
+                    $o_response->status = 'error';
+                    $o_response->message = 'error insert database';
+                }
+                break;
+        }
+        echo json_encode($o_response);
+    }
+    public function update(){
+        $o_response = new \stdclass();
+        $sz_id = Input::get('id');
+        $sz_title = Input::get('title');
+        $sz_email = Input::get('email');
+        $sz_group = Input::get('group_event');
+        $sz_room = Input::get('room');
+        $sz_user_id = Input::get('user_id');
+        $sz_start = Input::get('start');
+        $sz_end = Input::get('end');
+        $sz_color = Input::get('color');
+        $check = 0;
+
+        $arrEvent = $this->checkEvent($sz_start,$sz_end);
+        if (count($arrEvent) > 0) {
+            foreach ($arrEvent as $key => $item) {
+                if ($arrEvent[$key]->room_id == $sz_room) {
+                    $check = 1;
+                } else {
+                    $check = 0;
+                }
+            }
+        }
+        switch ($check) {
+            case 1:
+                $o_response->status = 'error';
+                $o_response->message = 'Please choose another Room';
+                break;
+            case 0:
+                $created_user = DB::table('events')->where('id',$sz_id)->update([
+                    'title' => $sz_title,
+                    'start' => $sz_start,
+                    'end' => $sz_end,
+                    'group_id' => $sz_group,
+                    'room_id' => $sz_room,
+                    'user_id' => $sz_user_id,
+                    'email' => $sz_email,
+                    'color' => $sz_color
+                ]);
+                if($created_user){
+                    $o_response->status = 'ok';
+                    $o_response->message = 'Update Event success';
                 }
                 else{
                     $o_response->status = 'error';
@@ -222,10 +273,7 @@ class HomeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
-        //
-    }
+
 
     /**
      * Remove the specified resource from storage.
