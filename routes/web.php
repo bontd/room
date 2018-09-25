@@ -62,6 +62,7 @@ Route::group(['middleware' => 'login'], function(){
 Route::get('/', 'IndexController@index')->middleware('cors');
 Route::get('/limit', 'IndexController@limit')->middleware('cors');
 Route::get('/hotnew', 'IndexController@hotnew')->middleware('cors');
+Route::get('/hotcong', 'IndexController@hotcong')->middleware('cors');
 Route::get('/testapi', 'IndexController@aixos')->middleware('cors');
 Route::get('/product', 'IndexController@product')->middleware('cors');
 Route::get('/detail/{id}', 'IndexController@show')->middleware('cors');

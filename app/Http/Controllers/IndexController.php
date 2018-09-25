@@ -36,6 +36,11 @@ class IndexController extends Controller
         return $news->getHotNews();
     }
 
+    public function hotcong() {
+        $news = new Danhba();
+        return $news->getHotCong();
+    }
+
     public function aixos() {
         $news = new Danhba();
         return $news->getNews();

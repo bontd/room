@@ -36,6 +36,17 @@ class Danhba extends Model {
 		return $table;
 	}
 
+	public function getHotCong(){
+		$table = DB::table('news')
+				->select('*')
+				->orderBy('view','desc')
+				->where('hot',1)
+				->skip(3)
+				->take(10)
+				->get();
+		return $table;
+	}
+
     public function whereGroup($the_sz_group){
 		$g_name = DB::table('news')
 				->select('id')
