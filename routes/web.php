@@ -60,7 +60,13 @@ Route::group(['middleware' => 'login'], function(){
 });
 
 Route::get('/', 'IndexController@index')->middleware('cors');
-Route::get('danhba/{danhba}','IndexController@show');
-Route::post('danhba','IndexController@store');
-Route::put('danhba/{danhba}','IndexController@update');
-Route::delete('danhba/{danhba}','IndexController@delete');
+Route::get('/limit', 'IndexController@limit')->middleware('cors');
+Route::get('/hotnew', 'IndexController@hotnew')->middleware('cors');
+Route::get('/testapi', 'IndexController@aixos')->middleware('cors');
+Route::get('/product', 'IndexController@product')->middleware('cors');
+Route::get('/detail/{id}', 'IndexController@show')->middleware('cors');
+Route::get('/productdetail/{id}', 'IndexController@showproduct')->middleware('cors');
+Route::get('router/{router}','IndexController@show');
+Route::post('router','IndexController@store');
+Route::put('router/{router}','IndexController@update');
+Route::delete('router/{router}','IndexController@delete');
